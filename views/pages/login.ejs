@@ -2,28 +2,39 @@
 <html lang="en">
   <head>
     <%- include('../partials/head.ejs') %>
+
+    <link rel="stylesheet" href="../css/style.css" />
+
     <title>Login</title>
   </head>
   <body>
-    <h2>Login</h2>
+    <div
+      style="margin: auto auto; width: 100%; max-width: 500px; height: 100%;"
+    >
+      <h3>Login</h3>
 
-    <% if (messages.error) { %> <%= messages.error %> <% }%>
+      <% if (messages.error) { %> <%= messages.error %> <% }%>
 
-    <form action="/login" method="POST">
-      <div>
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required />
-      </div>
+      <form action="/login" method="POST">
+        <div>
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
+        </div>
 
-      <div>
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required />
-      </div>
+        <div>
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required />
+        </div>
 
-      <button type="submit">Login</button>
-    </form>
+        <button type="submit">Login</button>
+      </form>
 
-    <a href="/register">Register</a>
+      <a href="/register">Register</a>
+    </div>
+
+    <footer>
+      <%- include('../partials/footer.ejs') %>
+    </footer>
   </body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </html>
