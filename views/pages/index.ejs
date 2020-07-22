@@ -11,18 +11,53 @@
       <!-- Modal content -->
       <div class="custom-modal-content">
         <span class="custom-close">&times;</span>
-        <h5>Add New Entry</h5>
-        <p>Some text in the Modal..</p>
+        <h5>Add New Reading</h5>
+        <br />
+
+        <form id="modal-form" action="/entry" method="POST">
+          <div>
+            <label for="when">When</label>
+            <input type="text" id="when" name="when" readonly="readonly" />
+          </div>
+
+          <div>
+            <label for="peak-flow">Peak Flow (L/min)</label>
+            <input type="number" id="peak-flow" name="peak_flow" required />
+          </div>
+
+          <div>
+            <label for="medication">Medication:</label>
+            <select name="medication" id="medication">
+              <option value="" disabled selected>Choose your option</option>
+              <option value="None">None</option>
+              <option value="Pre-Med">Pre-Med</option>
+              <option value="Post-Med">Post-Med</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="comment">Comment</label>
+            <textarea
+              id="comment"
+              name="comment"
+              class="materialize-textarea"
+            ></textarea>
+          </div>
+
+          <br />
+
+          <button class="btn" type="submit">
+            Done
+          </button>
+        </form>
       </div>
     </div>
 
-    <div
-      style="margin: auto auto; width: 90%; max-width: 1000px; height: 100%;"
-    >
-      <h3>Hi <%= name %></h3>
+    <div id="app">
+      <h3>Hi <%= user._name %></h3>
 
       <div class="fixed-action-btn">
-        <a class="btn-floating btn-large red" id="myBtn">
+        <a class="btn-floating btn-large A700" id="myBtn">
           <i class="large material-icons">add</i>
         </a>
       </div>
@@ -38,27 +73,20 @@
         </thead>
 
         <tbody>
+          <!-- Loop through quotes -->
+          <% for(var i = 0; i < user._entrys.length; i++) {%>
           <tr>
-            <td>Wed, 27 July 2020, 22:07</td>
-            <td>610</td>
-            <td>None</td>
-            <td>Feeling fine.</td>
+            <td><%= user._entrys[i].when %></td>
+            <td><%= user._entrys[i].peak_flow %></td>
+            <td><%= user._entrys[i].medication %></td>
+            <td><%= user._entrys[i].comment %></td>
           </tr>
-          <tr>
-            <td>Thur, 28 July 2020, 21:53</td>
-            <td>570</td>
-            <td>Pre-Med</td>
-            <td>Not great, bit out of breath but generally alright.</td>
-          </tr>
-          <tr>
-            <td>Fru, 29 July 2020, 21:49</td>
-            <td>630</td>
-            <td>Post-Med</td>
-            <td>Inhaler really did the trick today.</td>
-          </tr>
+          <% } %>
         </tbody>
       </table>
     </div>
+
+    <br />
 
     <form action="/logout?_method=DELETE" method="POST">
       <button type="submit">Log Out</button>
@@ -71,6 +99,48 @@
   <!-- <script type="module" src="../js/script.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script>
+    function formatDate(date) {
+      minutes =
+        date.getMinutes().toString().length == 1
+          ? "0" + date.getMinutes()
+          : date.getMinutes();
+      hours =
+        date.getHours().toString().length == 1
+          ? "0" + date.getHours()
+          : date.getHours();
+      ampm = date.getHours() >= 12 ? "pm" : "am";
+      months = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
+      days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+      return (
+        days[date.getDay()] +
+        " " +
+        months[date.getMonth()] +
+        " " +
+        date.getDate() +
+        " " +
+        date.getFullYear() +
+        " " +
+        hours +
+        ":" +
+        minutes +
+        ampm
+      );
+    }
+
     // Get the modal
     var modal = document.getElementById("myModal");
 
@@ -83,19 +153,26 @@
     // When the user clicks the button, open the modal
     btn.onclick = function () {
       modal.style.display = "block";
+      document.getElementById("when").value = new Date();
     };
 
     // When the user clicks on <span> (x), close the modal
     span.onclick = function () {
       modal.style.display = "none";
+      document.getElementById("modal-form").reset();
     };
 
     // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function (event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
-    };
+    // window.onclick = function (event) {
+    //   if (event.target == modal) {
+    //     modal.style.display = "none";
+    //   }
+    // };
+
+    document.addEventListener("DOMContentLoaded", function () {
+      var elems = document.querySelectorAll("select");
+      var instances = M.FormSelect.init(elems);
+    });
   </script>
 
   <style>
@@ -104,7 +181,7 @@
       display: none; /* Hidden by default */
       position: fixed; /* Stay in place */
       z-index: 9999; /* Sit on top */
-      padding-top: 100px; /* Location of the box */
+      padding-top: 50px; /* Location of the box */
       left: 0;
       top: 0;
       width: 100%; /* Full width */
@@ -118,7 +195,11 @@
     .custom-modal-content {
       background-color: #fefefe;
       margin: auto;
-      padding: 20px;
+
+      padding-left: 40px;
+      padding-right: 40px;
+      padding-top: 30px;
+      padding-bottom: 30px;
       border: 1px solid #888;
       width: 90%;
       max-width: 600px;
@@ -140,12 +221,19 @@
     }
 
     body {
-      padding: 0;
-      height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-direction: column;
+    }
+
+    form > div {
+      padding: 5px 0px;
+    }
+
+    #app {
+      width: 90%;
+      max-width: 1000px;
     }
   </style>
 </html>

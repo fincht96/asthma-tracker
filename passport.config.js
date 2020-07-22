@@ -6,7 +6,7 @@ function initialize(passport, getUserByEmail, getUserById) {
     try {
       const user = await getUserByEmail(email);
 
-      console.log(user);
+      // console.log(user);
       if (user == null) {
         return done(null, false, {
           message: "No user with that email, try again",
@@ -32,7 +32,7 @@ function initialize(passport, getUserByEmail, getUserById) {
 
   passport.serializeUser((user, done) => done(null, user._id));
   passport.deserializeUser((id, done) => {
-    console.log(id);
+    // console.log(id);
 
     getUserById(id)
       .then((res) => done(null, res))

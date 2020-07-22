@@ -25,33 +25,6 @@ MongoClient.connect(mongoConnectionString, { useUnifiedTopology: true })
 
     const usersCollection = db.collection("users");
 
-    // usersCollection
-    //   .findOne({ name: "Tom" })
-    //   .then((result) => {
-    //     console.log(result.email);
-    //   })
-    //   .catch((error) => console.log("Error could not find user"));
-
-    // initializePassport(
-    //   passport,
-
-    //   (email) => users.find((user) => user.email === email),
-
-    //   (id) => users.find((user) => user.id === id)
-
-    // );
-
-    usersCollection
-      .findOne(ObjectId("5f14bad178f17b2f30712b88"))
-
-      .then((result) => {
-        console.log(result);
-        return result;
-      })
-      .catch((error) => {
-        return null;
-      });
-
     initializePassport(
       passport,
 
@@ -61,16 +34,6 @@ MongoClient.connect(mongoConnectionString, { useUnifiedTopology: true })
 
       (id) => {
         return usersCollection.findOne(ObjectId(id));
-        // usersCollection
-        //   .findOne({ _id: id })
-
-        //   .then((result) => {
-        //     console.log(result._id);
-        //     return result;
-        //   })
-        //   .catch((error) => {
-        //     return null;
-        //   });
       }
     );
 
@@ -93,7 +56,7 @@ MongoClient.connect(mongoConnectionString, { useUnifiedTopology: true })
     app.set("view-engine", "ejs");
 
     app.get("/", checkAuthenticated, (req, res) => {
-      res.render("pages/index.ejs", { name: req.user._name });
+      res.render("pages/index.ejs", { user: req.user });
     });
 
     app.get("/login", checkNotAuthenticated, (req, res) => {
@@ -124,20 +87,12 @@ MongoClient.connect(mongoConnectionString, { useUnifiedTopology: true })
             _name: req.body.name,
             _email: req.body.email,
             _password: hashedPassword,
+            _entrys: [],
           })
           .then((result) => {
             res.redirect("/login");
           })
           .catch((error) => console.log("Error inserting user"));
-
-        // users.push({
-        //   id: Date.now.toString(),
-        //   name: req.body.name,
-        //   email: req.body.email,
-        //   password: hashedPassword,
-        // });
-        // console.log(users);
-        // res.redirect("/login");
       } catch (e) {
         console.log(e);
         res.redirect("/register");
@@ -147,7 +102,23 @@ MongoClient.connect(mongoConnectionString, { useUnifiedTopology: true })
     app.delete("/logout", (req, res) => {
       req.logOut();
       res.redirect("/login");
-      console.log("DELETE");
+    });
+
+    app.post("/entry", checkAuthenticated, async (req, res) => {
+      try {
+        await usersCollection.updateOne(
+          { _id: req.user._id },
+          {
+            $push: {
+              _entrys: req.body,
+            },
+          }
+        );
+
+        res.redirect("/");
+      } catch (e) {
+        console.log(e);
+      }
     });
 
     function checkAuthenticated(req, res, next) {
@@ -169,5 +140,3 @@ MongoClient.connect(mongoConnectionString, { useUnifiedTopology: true })
     app.listen(port);
   })
   .catch((error) => console.error(error));
-
-// const users = [];
