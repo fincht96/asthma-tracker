@@ -10,8 +10,29 @@
     <div id="myModal" class="custom-modal">
       <!-- Modal content -->
       <div class="custom-modal-content">
-        <span class="custom-close">&times;</span>
-        <h5>Add New Reading</h5>
+        <div style="display: flex; flex-direction: row-reverse;">
+          <div
+            class="custom-close"
+            style="margin: auto auto; padding: 5px 0px;"
+          >
+            &times;
+          </div>
+          <div
+            class="material-icons"
+            style="
+              margin: auto auto;
+              padding-top: 5px;
+              padding-bottom: 5px;
+              padding-right: 30px;
+              color: #aaaaaa;
+            "
+            id="delete_reading"
+          >
+            delete
+          </div>
+          <h5 style="flex-grow: 8;" id="modal_title"></h5>
+        </div>
+
         <br />
 
         <form id="modal-form" action="/entry" method="POST">
@@ -21,14 +42,14 @@
           </div>
 
           <div>
-            <label for="peak-flow">Peak Flow (L/min)</label>
-            <input type="number" id="peak-flow" name="peak_flow" required />
+            <label for="peak_flow">Peak Flow (L/min)</label>
+            <input type="number" id="peak_flow" name="peak_flow" required />
           </div>
 
           <div>
             <label for="medication">Medication:</label>
             <select name="medication" id="medication">
-              <option value="" disabled selected>Choose your option</option>
+              <option value="" disabled>Choose your option</option>
               <option value="None">None</option>
               <option value="Pre-Med">Pre-Med</option>
               <option value="Post-Med">Post-Med</option>
@@ -108,11 +129,15 @@
         <tbody>
           <!-- Loop through quotes -->
           <% for(var i = 0; i < user._entrys.length; i++) {%>
-          <tr>
-            <td><%= user._entrys[i].when %></td>
-            <td><%= user._entrys[i].peak_flow %></td>
-            <td><%= user._entrys[i].medication %></td>
-            <td><%= user._entrys[i].comment %></td>
+          <tr
+            style="cursor: pointer;"
+            id="<%= i %>"
+            onclick="onEntryClicked(this.id)"
+          >
+            <td id="when_<%= i %>"><%= user._entrys[i].when %></td>
+            <td id="peakflow_<%= i %>"><%= user._entrys[i].peak_flow %></td>
+            <td id="medication_<%= i %>"><%= user._entrys[i].medication %></td>
+            <td id="comment_<%= i %>"><%= user._entrys[i].comment %></td>
           </tr>
           <% } %>
         </tbody>
@@ -127,6 +152,7 @@
   </body>
   <!-- <script type="module" src="../js/script.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
   <script>
     function formatDate(date) {
       minutes =
@@ -173,6 +199,8 @@
     // Get the modal
     var modal = document.getElementById("myModal");
 
+    var delete_reading = document.getElementById("delete_reading");
+
     // Get the button that opens the modal
     var btn = document.getElementById("myBtn");
 
@@ -182,6 +210,8 @@
     // When the user clicks the button, open the modal
     btn.onclick = function () {
       modal.style.display = "block";
+      delete_reading.style.display = "none";
+      document.getElementById("modal_title").innerHTML = "Add New Reading";
       document.getElementById("when").value = new Date();
     };
 
@@ -195,6 +225,7 @@
     window.onclick = function (event) {
       if (event.target == modal) {
         modal.style.display = "none";
+        var modal = document.getElementById("myModal");
       }
     };
 
@@ -206,13 +237,11 @@
     toggle between hiding and showing the dropdown content */
     function myFunction() {
       document.getElementById("myDropdown1").classList.toggle("show");
-      console.log("called!");
     }
 
     // Close the dropdown if the user clicks outside of it
     window.onclick = function (event) {
       if (!event.target.matches(".dropbtn1")) {
-        console.log("called 1");
         var dropdowns = document.getElementsByClassName("dropdown-content1");
         var i;
         for (i = 0; i < dropdowns.length; i++) {
@@ -236,6 +265,40 @@
         return false;
       };
     };
+
+    function onEntryClicked(entry_id) {
+      document.getElementById("modal-form").reset();
+
+      document.getElementById("modal_title").innerHTML = "Modify Reading";
+
+      var when = document.getElementById("when_" + entry_id).innerHTML;
+      var peak_flow = document.getElementById("peakflow_" + entry_id).innerHTML;
+      var medicationVal = document.getElementById("medication_" + entry_id)
+        .innerHTML;
+      var comment = document.getElementById("comment_" + entry_id).innerHTML;
+
+      console.log(medication);
+
+      modal.style.display = "block";
+      delete_reading.style.display = "block";
+
+      document.getElementById("when").value = when;
+      document.getElementById("peak_flow").value = peak_flow;
+
+      var val = medicationVal;
+      var medicationSelect = document.getElementById("medication");
+      var opts = medicationSelect.options;
+      for (var opt, j = 0; (opt = opts[j]); j++) {
+        if (opt.value == val) {
+          medicationSelect.selectedIndex = j;
+          break;
+        }
+      }
+
+      document.getElementById("comment").textContent = comment;
+
+      // NEED TO UPDATE POST TO CAUSE UPDATE IN DB NOT CREATE NEW READING
+    }
   </script>
 
   <style>
