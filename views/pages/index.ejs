@@ -17,17 +17,7 @@
           >
             &times;
           </div>
-          <div
-            class="material-icons"
-            style="
-              margin: auto auto;
-              padding-top: 5px;
-              padding-bottom: 5px;
-              padding-right: 30px;
-              color: #aaaaaa;
-            "
-            id="delete_reading"
-          >
+          <div class="material-icons custom-delete" id="delete_reading">
             delete
           </div>
           <h5 style="flex-grow: 8;" id="modal_title"></h5>
@@ -35,7 +25,7 @@
 
         <br />
 
-        <form id="modal-form" action="/entry" method="POST">
+        <form id="modal-form">
           <div>
             <label for="when">When</label>
             <input type="text" id="when" name="when" readonly="readonly" />
@@ -199,6 +189,8 @@
     // Get the modal
     var modal = document.getElementById("myModal");
 
+    var modalForm = document.getElementById("modal-form");
+
     var delete_reading = document.getElementById("delete_reading");
 
     // Get the button that opens the modal
@@ -213,6 +205,9 @@
       delete_reading.style.display = "none";
       document.getElementById("modal_title").innerHTML = "Add New Reading";
       document.getElementById("when").value = new Date();
+
+      modalForm.action = "/entry";
+      modalForm.method = "POST";
     };
 
     // When the user clicks on <span> (x), close the modal
@@ -233,6 +228,7 @@
       var elems = document.querySelectorAll("select");
       var instances = M.FormSelect.init(elems);
     });
+
     /* When the user clicks on the button,
     toggle between hiding and showing the dropdown content */
     function myFunction() {
@@ -255,7 +251,7 @@
 
     window.onload = function () {
       document.getElementById("logout").onclick = function () {
-        var myForm = document.createElement("form");
+        let myForm = document.createElement("form");
         document.body.appendChild(myForm);
 
         myForm.action = "/logout?_method=DELETE"; // the href of the link
@@ -296,6 +292,30 @@
       }
 
       document.getElementById("comment").textContent = comment;
+
+      document.getElementById("delete_reading").onclick = function () {
+        console.log("delete called!!");
+        let deleteForm = document.createElement("form");
+        document.body.appendChild(deleteForm);
+        deleteForm.action = "/entry?_method=DELETE";
+        deleteForm.method = "POST";
+        let input = document.createElement("input");
+        input.setAttribute("type", "hidden");
+        input.setAttribute("name", "entry_id");
+        input.setAttribute("value", entry_id);
+        deleteForm.appendChild(input);
+        deleteForm.submit();
+        return false;
+      };
+
+      var input = document.createElement("input");
+      input.setAttribute("type", "hidden");
+      input.setAttribute("name", "entry_id");
+      input.setAttribute("value", entry_id);
+      modalForm.appendChild(input);
+
+      modalForm.action = "/entry?_method=PUT";
+      modalForm.method = "POST";
 
       // NEED TO UPDATE POST TO CAUSE UPDATE IN DB NOT CREATE NEW READING
     }
@@ -341,6 +361,30 @@
 
     .custom-close:hover,
     .custom-close:focus {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .custom-close:hover,
+    .custom-close:focus {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .custom-delete {
+      margin-top: auto;
+      margin-bottom: auto;
+      margin-right: 30px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+
+      color: #aaaaaa;
+    }
+
+    .custom-delete:hover,
+    .custom-delete:focus {
       color: #000;
       text-decoration: none;
       cursor: pointer;

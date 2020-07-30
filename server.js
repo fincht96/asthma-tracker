@@ -106,11 +106,76 @@ MongoClient.connect(mongoConnectionString, { useUnifiedTopology: true })
 
     app.post("/entry", checkAuthenticated, async (req, res) => {
       try {
+        // console.log(result);
+
         await usersCollection.updateOne(
           { _id: req.user._id },
           {
             $push: {
               _entrys: req.body,
+            },
+          }
+        );
+
+        res.redirect("/");
+      } catch (e) {
+        console.log(e);
+      }
+    });
+
+    app.delete("/entry", checkAuthenticated, async (req, res) => {
+      try {
+        // find the user then search entries for document to
+        let result = await usersCollection.findOne({ _id: req.user._id });
+        let entryIndex = req.body.entry_id;
+
+        await usersCollection.updateOne(
+          { _id: req.user._id },
+          {
+            $unset: {
+              ["_entrys." + entryIndex]: {
+                when: "",
+                peak_flow: "",
+                medication: "",
+                comment: "",
+              },
+            },
+          }
+        );
+
+        await usersCollection.updateOne(
+          { _id: req.user._id },
+          {
+            $pull: {
+              _entrys: null,
+            },
+          }
+        );
+
+        res.redirect("/");
+      } catch (e) {
+        console.log(e);
+      }
+    });
+
+    app.put("/entry", checkAuthenticated, async (req, res) => {
+      try {
+        // find the user then search entries for document to
+        let result = await usersCollection.findOne({ _id: req.user._id });
+        let entryIndex = req.body.entry_id;
+
+        console.log(result);
+
+        await usersCollection.updateOne(
+          { _id: req.user._id },
+          {
+            $set: {
+              ["_entrys." + entryIndex]: {
+                when: req.body.when,
+                peak_flow: req.body.peak_flow,
+                medication: req.body.medication,
+                comment: req.body.comment,
+              },
             },
           }
         );
