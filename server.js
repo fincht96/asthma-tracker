@@ -59,6 +59,10 @@ MongoClient.connect(mongoConnectionString, { useUnifiedTopology: true })
       res.render("pages/index.ejs", { user: req.user });
     });
 
+    app.get("/profile", checkAuthenticated, (req, res) => {
+      res.render("pages/profile.ejs", { user: req.user });
+    });
+
     app.get("/login", checkNotAuthenticated, (req, res) => {
       res.render("pages/login.ejs");
     });

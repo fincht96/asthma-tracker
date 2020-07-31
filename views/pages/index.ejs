@@ -47,7 +47,9 @@
           </div>
 
           <div>
-            <label for="comment">Comment</label>
+            <label for="comment"
+              >Comment &nbsp;&nbsp;&nbsp;&nbsp; (200/255)</label
+            >
             <textarea
               id="comment"
               name="comment"
@@ -66,39 +68,31 @@
 
     <div id="app">
       <div class="flex-container">
-        <div class="dropdown1" style="margin-bottom: auto; margin-top: auto;">
-          <div>
-            <div
-              ref="accnt-btn"
-              class="user-icon dropbtn1"
-              style="margin-left: auto;"
-              onclick="myFunction()"
-            >
-              TF
-            </div>
-          </div>
-
-          <div id="myDropdown1" class="dropdown-content1">
-            <a href="#">My Account</a>
-            <a href="#" id="logout"> Log Out</a>
-          </div>
-        </div>
-
-        <!-- <div style="margin-top: auto; margin-bottom: auto;">
+        <div class="dropdown1" style="flex-grow: 1;">
           <div
             ref="accnt-btn"
-            v-on:click.stop="menuItemClicked('accnt')"
-            class="user-icon"
+            class="user-icon dropbtn1"
+            onclick="myFunction()"
             style="margin-left: auto;"
           >
             TF
           </div>
-        </div> -->
 
-        <div style="flex-grow: 1; margin-top: auto;">
-          <h3>Hi <%= user._name %></h3>
+          <div id="myDropdown1" class="dropdown-content1">
+            <a href="/profile">My Profile</a>
+            <a href="#" id="logout"> Log Out</a>
+          </div>
+        </div>
+
+        <div style="flex-grow: 1; text-align: left;"></div>
+
+        <div style="flex-grow: 8; text-align: left;">
+          My Diary
         </div>
       </div>
+
+      <br />
+      <br />
 
       <div class="fixed-action-btn">
         <a class="btn-floating btn-large A700" id="myBtn">
@@ -135,10 +129,6 @@
     </div>
 
     <br />
-
-    <footer>
-      <%- include('../partials/footer.ejs') %>
-    </footer>
   </body>
   <!-- <script type="module" src="../js/script.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
@@ -201,6 +191,7 @@
 
     // When the user clicks the button, open the modal
     btn.onclick = function () {
+      document.getElementById("modal-form").reset();
       modal.style.display = "block";
       delete_reading.style.display = "none";
       document.getElementById("modal_title").innerHTML = "Add New Reading";
@@ -431,12 +422,9 @@
     }
 
     .flex-container > div {
-      /* background-color: #f1f1f1;
-      width: 100px; */
-      margin: 10px;
-      /* text-align: center;
-      line-height: 75px;
-      font-size: 30px; */
+      margin: auto;
+
+      font-size: 30px;
     }
 
     /* The container <div> - needed to position the dropdown content */
@@ -467,11 +455,22 @@
       padding: 12px 16px;
       text-decoration: none;
       display: block;
+      font-size: 15px;
     }
 
     /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
     .show {
       display: block;
+    }
+
+    th {
+      text-align: left;
+      padding: 5px 10px;
+    }
+
+    td {
+      text-align: left;
+      padding: 5px 10px;
     }
   </style>
 </html>

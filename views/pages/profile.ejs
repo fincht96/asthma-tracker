@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/head.ejs') %>
+    <link rel="stylesheet" href="../css/style.css" />
+    <title>Profile</title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="flex-container">
+        <div class="dropdown1" style="flex-grow: 1;">
+          <div
+            ref="accnt-btn"
+            class="user-icon dropbtn1"
+            onclick="myFunction()"
+            style="margin-left: auto;"
+          >
+            TF
+          </div>
+
+          <div id="myDropdown1" class="dropdown-content1">
+            <a href="/profile">My Profile</a>
+            <a href="#" id="logout"> Log Out</a>
+          </div>
+        </div>
+
+        <div style="flex-grow: 8; text-align: left;">
+          My Profile
+        </div>
+
+        <div style="flex-grow: 0.4; text-align: left;">
+          <div class="material-icons" style="cursor: pointer;" id="back_btn">
+            arrow_back
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br />
+
+    <footer></footer>
+  </body>
+  <!-- <script type="module" src="../js/script.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+  <script>
+    var back_btn = document.getElementById("back_btn");
+
+    back_btn.onclick = function () {
+      location.href = "/";
+    };
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+        var modal = document.getElementById("myModal");
+      }
+    };
+
+    document.addEventListener("DOMContentLoaded", function () {
+      var elems = document.querySelectorAll("select");
+      var instances = M.FormSelect.init(elems);
+    });
+
+    /* When the user clicks on the button,
+    toggle between hiding and showing the dropdown content */
+    function myFunction() {
+      document.getElementById("myDropdown1").classList.toggle("show");
+    }
+
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function (event) {
+      if (!event.target.matches(".dropbtn1")) {
+        var dropdowns = document.getElementsByClassName("dropdown-content1");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains("show")) {
+            openDropdown.classList.remove("show");
+          }
+        }
+      }
+    };
+
+    window.onload = function () {
+      document.getElementById("logout").onclick = function () {
+        let myForm = document.createElement("form");
+        document.body.appendChild(myForm);
+
+        myForm.action = "/logout?_method=DELETE"; // the href of the link
+        myForm.method = "POST";
+        myForm.submit();
+        console.log("called here");
+        return false;
+      };
+    };
+  </script>
+
+  <style>
+    /* The Modal (background) */
+    .custom-modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 9999;
+      padding-top: 50px; /* Location of the box */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0, 0, 0); /* Fallback color */
+      background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .custom-modal-content {
+      background-color: #fefefe;
+      margin: auto;
+
+      padding-left: 40px;
+      padding-right: 40px;
+      padding-top: 30px;
+      padding-bottom: 30px;
+      border: 1px solid #888;
+      width: 90%;
+      max-width: 600px;
+    }
+
+    /* The Close Button */
+    .custom-close {
+      color: #aaaaaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .custom-close:hover,
+    .custom-close:focus {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .custom-close:hover,
+    .custom-close:focus {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .custom-delete {
+      margin-top: auto;
+      margin-bottom: auto;
+      margin-right: 30px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+
+      color: #aaaaaa;
+    }
+
+    .custom-delete:hover,
+    .custom-delete:focus {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    form > div {
+      padding: 5px 0px;
+    }
+
+    #app {
+      width: 90%;
+      max-width: 1000px;
+    }
+
+    .user-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 25px;
+      font-size: 21px;
+      color: #fff;
+      line-height: 50px;
+      text-align: center;
+      background: #f9b9f2;
+      -webkit-user-select: none; /* Safari */
+      -moz-user-select: none; /* Firefox */
+      -ms-user-select: none; /* IE10+/Edge */
+      user-select: none; /* Standard */
+      cursor: pointer;
+    }
+
+    .flex-container {
+      display: flex;
+      flex-wrap: nowrap;
+      margin: 20px 0px;
+      flex-direction: row-reverse;
+    }
+
+    .flex-container > div {
+      margin: auto;
+
+      font-size: 30px;
+    }
+
+    /* The container <div> - needed to position the dropdown content */
+    .dropdown1 {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown1 a:hover {
+      background-color: #ddd;
+    }
+
+    /* Dropdown Content (Hidden by Default) */
+    .dropdown-content1 {
+      display: none;
+      position: absolute;
+      background-color: #f1f1f1;
+      min-width: 160px;
+      overflow: auto;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+      right: 0;
+      margin-top: 10px;
+    }
+
+    .dropdown-content1 a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      font-size: 15px;
+    }
+
+    /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+    .show {
+      display: block;
+    }
+
+    th {
+      text-align: left;
+      padding: 5px 10px;
+    }
+
+    td {
+      text-align: left;
+      padding: 5px 10px;
+    }
+  </style>
+</html>
