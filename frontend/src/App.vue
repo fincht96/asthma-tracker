@@ -1,11 +1,47 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link>|
-      <router-link to="/about">About</router-link>|
-      <router-link to="/account">Account</router-link>
+      <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="https://bulma.io">
+            <div style="font-size: 20px;">Asthma Tracker</div>
+          </a>
+
+          <a
+            role="button"
+            class="navbar-burger burger"
+            aria-label="menu"
+            aria-expanded="false"
+            data-target="navbarBasicExample"
+          >
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start">
+            <router-link class="navbar-item" to="/home">Home</router-link>
+
+            <router-link class="navbar-item" to="/about">About</router-link>
+          </div>
+
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="buttons">
+                <a class="button is-primary">
+                  <strong>Sign up</strong>
+                </a>
+                <a class="button is-light">Log in</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
     </div>
     <router-view />
+
   </div>
 </template>
 
@@ -18,7 +54,11 @@ export default {
 
     try {
       let resp = await fetch("http://localhost:3000");
-      console.log( await resp.json());
+      let a = await resp.json();
+
+      if (a.a == 1) {
+        console.log("a is 1!");
+      }
     } catch (e) {
       console.log(e);
     }
