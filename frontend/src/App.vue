@@ -22,19 +22,22 @@
 
         <div id="navbarBasicExample" class="navbar-menu">
           <div class="navbar-start">
-            <router-link class="navbar-item" to="/home">Home</router-link>
+            <div class="navbar-item">
+              <router-link to="/home">Home</router-link>
+            </div>
 
-            <router-link class="navbar-item" to="/about">About</router-link>
+            <div class="navbar-item">
+              <router-link to="/about">About</router-link>
+            </div>
           </div>
 
           <div class="navbar-end">
             <div class="navbar-item">
-              <div class="buttons">
+              <router-link to="/login">
                 <a class="button is-primary">
-                  <strong>Sign up</strong>
+                  <strong>Log in</strong>
                 </a>
-                <a class="button is-light">Log in</a>
-              </div>
+              </router-link>
             </div>
           </div>
         </div>
@@ -42,6 +45,13 @@
     </div>
     <router-view />
 
+    <div class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <div style="width:100px; height:200px; background-color:white;">Hello World</div>
+      </div>
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
   </div>
 </template>
 
@@ -50,8 +60,6 @@ export default {
   methods: {},
 
   async created() {
-    console.log("hello world just started");
-
     try {
       let resp = await fetch("http://localhost:3000");
       let a = await resp.json();
@@ -67,7 +75,7 @@ export default {
 </script>
 
 
-<style lang="scss">
+<style lang="scss" >
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -82,10 +90,6 @@ export default {
   a {
     font-weight: bold;
     color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
   }
 }
 </style>

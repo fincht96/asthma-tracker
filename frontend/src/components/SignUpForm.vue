@@ -1,7 +1,7 @@
 <template>
   <div class="flex-container">
     <div class="row">
-      <h1 class="title">Login</h1>
+      <h1 class="title">Sign Up</h1>
       <br />
 
       <div class="field">
@@ -18,20 +18,27 @@
           </div>
         </div>
 
+        <div class="field">
+          <label class="label">Re-enter password</label>
+          <div class="control">
+            <input class="input" type="password" />
+          </div>
+        </div>
+
         <br />
 
         <div class="field is-grouped">
           <div class="control">
-            <button class="button is-link">Login</button>
-          </div>
-          <div class="control">
-            <button class="button is-link is-light">Cancel</button>
+            <button class="button is-link">Sign Up</button>
           </div>
         </div>
 
         <br />
         <br />
-        <div>Don't have an account? <router-link to="/signup">Sign up here</router-link></div>
+        <div>
+          Already have an account?
+          <router-link to="/login">Login here</router-link>
+        </div>
       </div>
     </div>
   </div>
@@ -39,7 +46,7 @@
 
 <script>
 export default {
-  name: "LoginForm"
+  name: "SignUpForm"
 };
 </script>
 
