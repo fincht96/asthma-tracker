@@ -3,7 +3,7 @@
     <div id="nav">
       <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-          <a class="navbar-item" href="https://bulma.io">
+          <a class="navbar-item" href="/">
             <div style="font-size: 20px;">Asthma Tracker</div>
           </a>
 
@@ -23,7 +23,7 @@
         <div id="navbarBasicExample" class="navbar-menu">
           <div class="navbar-start">
             <div class="navbar-item">
-              <router-link to="/home">Home</router-link>
+              <router-link to="/">Home</router-link>
             </div>
 
             <div class="navbar-item">
@@ -52,11 +52,23 @@
       </div>
       <button class="modal-close is-large" aria-label="close"></button>
     </div>
+
+
+
   </div>
 </template>
 
 <script>
+// @ is an alias to /src
+
+
 export default {
+
+  name: "App",
+
+
+
+  
   methods: {},
 
   async created() {
@@ -92,4 +104,9 @@ export default {
     color: #2c3e50;
   }
 }
+
+
+
+
+
 </style>

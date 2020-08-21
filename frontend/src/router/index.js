@@ -2,15 +2,13 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 
-
-
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
     name: "Home",
-    component: Home
+    component: Home,
   },
   {
     path: "/about",
@@ -19,7 +17,7 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+      import(/* webpackChunkName: "about" */ "../views/About.vue"),
   },
   {
     path: "/account",
@@ -28,7 +26,7 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Account.vue")
+      import(/* webpackChunkName: "about" */ "../views/Account.vue"),
   },
   {
     path: "/login",
@@ -37,7 +35,7 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Login.vue")
+      import(/* webpackChunkName: "about" */ "../views/Login.vue"),
   },
 
   {
@@ -47,16 +45,15 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/SignUp.vue")
+      import(/* webpackChunkName: "about" */ "../views/SignUp.vue"),
   },
-
 ];
 
 const router = new VueRouter({
   mode: "history",
-  linkExactActiveClass: 'is-active',
+  linkExactActiveClass: "is-active",
   base: process.env.BASE_URL,
-  routes
+  routes,
 });
 
 export default router;
