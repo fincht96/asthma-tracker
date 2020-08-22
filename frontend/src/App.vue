@@ -3,9 +3,12 @@
     <div id="nav">
       <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-          <a class="navbar-item" href="/">
-            <div style="font-size: 20px;">Asthma Tracker</div>
-          </a>
+          <div class="navbar-item" href="/">
+            <!-- <div style="font-size: 20px;">Asthma Tracker</div> -->
+            <router-link to="/" style="font-size: 20px;"
+              >Asthma Tracker</router-link
+            >
+          </div>
 
           <a
             role="button"
@@ -48,27 +51,21 @@
     <div class="modal">
       <div class="modal-background"></div>
       <div class="modal-content">
-        <div style="width:100px; height:200px; background-color:white;">Hello World</div>
+        <div style="width:100px; height:200px; background-color:white;">
+          Hello World
+        </div>
       </div>
       <button class="modal-close is-large" aria-label="close"></button>
     </div>
-
-
-
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 
-
 export default {
-
   name: "App",
 
-
-
-  
   methods: {},
 
   async created() {
@@ -82,12 +79,11 @@ export default {
     } catch (e) {
       console.log(e);
     }
-  }
+  },
 };
 </script>
 
-
-<style lang="scss" >
+<style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -104,9 +100,4 @@ export default {
     color: #2c3e50;
   }
 }
-
-
-
-
-
 </style>

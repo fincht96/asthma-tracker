@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import store from "../store";
 
 Vue.use(VueRouter);
 
@@ -36,6 +37,13 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/Login.vue"),
+    beforeEnter: (to, from, next) => {
+      if (store.state.authenticated == true) {
+        next('/dashboard');
+      } else {
+        next();
+      }
+    },
   },
 
   {
@@ -47,6 +55,24 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/SignUp.vue"),
   },
+
+  {
+    path: "/dashboard",
+    name: "Dashboard",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Dashboard.vue"),
+
+    beforeEnter: (to, from, next) => {
+      if (store.state.authenticated == false) {
+        next('/login');
+      } else {
+        next();
+      }
+    },
+  },
 ];
 
 const router = new VueRouter({
@@ -54,6 +80,7 @@ const router = new VueRouter({
   linkExactActiveClass: "is-active",
   base: process.env.BASE_URL,
   routes,
+  store,
 });
 
 export default router;
