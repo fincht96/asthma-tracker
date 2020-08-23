@@ -1,7 +1,14 @@
 <template>
   <div class="flex-container">
     <div class="row">
+      <div class="notification is-success" v-if="accountCreated">
+        <button class="delete" v-on:click="accountCreated = false">></button>
+        <strong>Account Created Successfully!</strong>
+      </div>
+
+      <br />
       <h1 class="title">Log in</h1>
+
       <br />
 
       <div class="field">
@@ -22,9 +29,7 @@
 
         <div class="field is-grouped">
           <div class="control">
-            <button class="button is-link" v-on:click="loginRequest">
-              Log in
-            </button>
+            <button class="button is-link" v-on:click="loginRequest">Log in</button>
           </div>
           <div class="control">
             <button class="button is-link is-light">Cancel</button>
@@ -35,7 +40,7 @@
         <br />
         <div>
           Don't have an account?
-          <router-link to="/signup">Sign up here</router-link>
+          <router-link to="/signup">Sign up</router-link>
         </div>
       </div>
     </div>
@@ -46,12 +51,25 @@
 export default {
   name: "LoginForm",
 
+  mounted: function() {
+    this.accountCreated = this.$store.getters.accountCreated;
+    if (this.accountCreated) {
+      this.$store.commit("setAccountCreated", false);
+    }
+  },
+
+  data: function() {
+    return {
+      accountCreated: false
+    };
+  },
+
   methods: {
     loginRequest() {
       this.$store.commit("setAuthentication", true);
       this.$router.replace({ name: "Dashboard" });
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -36,6 +36,15 @@ MongoClient.connect(mongoConnectionString, { useUnifiedTopology: true })
       }
     );
 
+    app.use(function (req, res, next) {
+      res.header("Access-Control-Allow-Origin", "http://localhost:8080"); // update to match the domain you will make the request from
+      res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+      );
+      next();
+    });
+
     app.use(
       session({
         secret: process.env.SESSION_SECRET,
@@ -50,6 +59,10 @@ MongoClient.connect(mongoConnectionString, { useUnifiedTopology: true })
     app.use(passport.session());
     app.use(methodOverride("_method"));
     app.use(express.static("public"));
+
+    app.get("/", function (req, res, next) {
+      res.send({ a: 1});
+    });
 
     app.post(
       "/login",
@@ -67,7 +80,7 @@ MongoClient.connect(mongoConnectionString, { useUnifiedTopology: true })
 
         usersCollection
           .insertOne({
-            _name: req.body.name,
+            // _name: req.body.name,
             _email: req.body.email,
             _password: hashedPassword,
             _entrys: [],
