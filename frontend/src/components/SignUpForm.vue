@@ -10,14 +10,14 @@
           <input
             class="input"
             v-bind:class="{
-              'is-danger': emailErrorMsg.length,
+              'is-danger': emailMsg.length,
             }"
             type="text"
             v-model="email"
           />
         </div>
 
-        <p class="help is-danger" v-if="emailErrorMsg.length">{{ emailErrorMsg }}</p>
+        <p class="help is-danger" v-if="emailMsg.length">{{ emailMsg }}</p>
 
         <br />
 
@@ -34,10 +34,7 @@
                 'is-danger': password1Error,
               }"
             />
-            <p
-              :class="{ 'is-danger': password1Error }"
-              class="help"
-            >Use 8 or more characters with a medium or higher password strength</p>
+            <p :class="{ 'is-danger': password1Error }" class="help">{{ password1Msg }}</p>
 
             <div v-if="password1.length" class="password-background" id="pwb"></div>
             <div v-if="password1.length" class="strength" id="pws"></div>
@@ -104,42 +101,45 @@ export default {
     },
 
     isValidPassword() {
-      let isValid = true;
       const zxcvbn = require("zxcvbn");
       const passwordScore = zxcvbn(this.password1)["score"];
-
-      if (passwordScore > 1 && this.password1.length > 7) {
-        isValid = true;
+      if (passwordScore > 1) {
+        return true;
       } else {
-        isValid = false;
+        return false;
       }
-
-      return isValid;
     },
 
     async signUpRequest() {
-      this.emailErrorMsg = "";
-      this.password1Error = false;
-      this.password2Error = false;
 
       const signUpBtn = document.getElementById("signUpBtn");
       signUpBtn.disabled = true;
 
-
+      // validates email
       if (!this.isValidEmail()) {
-        this.emailErrorMsg = "Invalid email provided";
+        this.emailMsg = "Invalid email provided";
       } else {
         if (this.isEmailInUse()) {
-          this.emailErrorMsg = "Email is already in use";
+          this.emailMsg = "Email is already in use";
+        }
+        if (this.email.length > 99) {
+          this.emailMsg = "Email length must be less than 100 characters.";
         }
       }
 
+      // validates password 1
       this.password1Error = !this.isValidPassword();
-      this.password2Error =
-        this.password1 != this.password2 || !this.password2.length;
+
+      if (this.password1.length < 8) {
+        this.password1Error = true;
+      } else if (this.password1.length > 99) {
+        this.password1Msg = "Password must be less than 100 characters.";
+      }
+
+      this.password2Error = this.password1 != this.password2;
 
       if (
-        !this.emailErrorMsg.length &&
+        !this.emailMsg.length &&
         !this.password1Error &&
         !this.password2Error
       ) {
@@ -158,11 +158,12 @@ export default {
           signUpBtn.disabled = false;
           this.$store.commit("setAccountCreated", true);
           this.$router.replace({ name: "Login" });
-
         } catch (e) {
           signUpBtn.disabled = false;
           console.log(e);
         }
+      } else {
+        signUpBtn.disabled = false;
       }
     }
   },
@@ -172,7 +173,10 @@ export default {
       email: "",
       password1: "",
       password2: "",
-      emailErrorMsg: "",
+      emailMsg: "",
+      password1Msg:
+        "Use 8 or more characters with a medium or higher password strength",
+      emailError: false,
       password1Error: false,
       password2Error: false
     };
@@ -180,11 +184,13 @@ export default {
 
   watch: {
     email: function(email) {
-      this.emailErrorMsg = "";
+      this.emailMsg = "";
     },
 
     password1: function(password) {
       this.password1Error = false;
+      this.password1Msg =
+        "Use 8 or more characters with a medium or higher password strength";
       const zxcvbn = require("zxcvbn");
       const passwordScore = zxcvbn(password)["score"];
 

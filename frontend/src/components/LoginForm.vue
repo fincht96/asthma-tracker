@@ -14,14 +14,32 @@
       <div class="field">
         <label class="label">Email</label>
         <div class="control">
-          <input class="input" type="text" />
+          <input
+            class="input"
+            type="text"
+            v-model="email"
+            :class="{
+                'is-danger': emailError,
+              }"
+          />
+          <p :class="{ 'is-danger': emailError }" class="help">{{ emailMsg }}</p>
         </div>
         <br />
 
         <div class="field">
           <label class="label">Password</label>
           <div class="control">
-            <input class="input" type="password" />
+            <input
+              class="input"
+              v-model="password"
+              type="password"
+              oninput="return false"
+              onpaste="return false"
+              :class="{
+                'is-danger': passwordError,
+              }"
+            />
+            <p :class="{ 'is-danger': passwordError }" class="help">{{ passwordMsg }}</p>
           </div>
         </div>
 
@@ -29,7 +47,7 @@
 
         <div class="field is-grouped">
           <div class="control">
-            <button class="button is-link" v-on:click="loginRequest">Log in</button>
+            <button class="button is-link" v-on:click="loginRequest" id="logInBtn">Log in</button>
           </div>
           <div class="control">
             <button class="button is-link is-light">Cancel</button>
@@ -60,14 +78,68 @@ export default {
 
   data: function() {
     return {
-      accountCreated: false
+      accountCreated: false,
+      email: "",
+      password: "",
+      emailMsg: "",
+      passwordMsg: "",
+      emailError: false,
+      passwordError: false
     };
   },
 
   methods: {
+    isValidEmail() {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email);
+    },
+
+    isEmailInUse() {
+      // check here for existing emails in database
+      // if (this.email == "finch851@gmail.com") {
+      //   this.emailError = "Looks like this email is already in use";
+      //   isValid = 1;
+      // }
+
+      if (this.email == "finch851@gmail.com") {
+        return true;
+      }
+
+      return false;
+    },
+
+    isValidPassword() {
+      return false;
+    },
+
     loginRequest() {
-      this.$store.commit("setAuthentication", true);
-      this.$router.replace({ name: "Dashboard" });
+      const logInBtn = document.getElementById("logInBtn");
+      logInBtn.disabled = true;
+
+      if (!this.isValidEmail()) {
+        this.emailError = true;
+        this.emailMsg = "Invalid email provided";
+      } else if (!this.isEmailInUse()) {
+        this.emailError = true;
+        this.emailMsg = "Unable to find an account with that email";
+      } else if (!this.isValidPassword()) {
+        this.passwordError = true;
+        this.passwordMsg = "Invalid password provided";
+      }
+
+      // sets authentication enabled and re routes to dashboard
+      // this.$store.commit("setAuthentication", true);
+      // this.$router.replace({ name: "Dashboard" });
+    }
+  },
+  watch: {
+    email: function(email) {
+      this.emailError = "";
+      this.emailMsg = "";
+    },
+
+    password: function(password) {
+      this.passwordError = false;
+      this.passwordMsg = "";
     }
   }
 };
