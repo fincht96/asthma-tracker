@@ -93,37 +93,76 @@ export default {
       return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email);
     },
 
-    isEmailInUse() {
+    async isEmailUsed() {
       // check here for existing emails in database
-      // if (this.email == "finch851@gmail.com") {
-      //   this.emailError = "Looks like this email is already in use";
-      //   isValid = 1;
-      // }
 
-      if (this.email == "finch851@gmail.com") {
-        return true;
+      try {
+        var url = new URL("http://localhost:3000/user");
+        var params = { email: this.email }; // or:
+        url.search = new URLSearchParams(params).toString();
+
+        let resp = await fetch(url);
+
+        console.log(resp);
+
+        if (resp.status == 200) {
+          return true;
+        }
+
+        return false;
+      } catch (e) {
+        console.log(e);
       }
-
-      return false;
     },
 
-    isValidPassword() {
-      return false;
-    },
+    // isValidPassword() {
 
-    loginRequest() {
+    //   return false;
+    // },
+
+    async loginRequest() {
       const logInBtn = document.getElementById("logInBtn");
       logInBtn.disabled = true;
 
-      if (!this.isValidEmail()) {
-        this.emailError = true;
-        this.emailMsg = "Invalid email provided";
-      } else if (!this.isEmailInUse()) {
-        this.emailError = true;
-        this.emailMsg = "Unable to find an account with that email";
-      } else if (!this.isValidPassword()) {
-        this.passwordError = true;
-        this.passwordMsg = "Invalid password provided";
+      try {
+        if (!this.isValidEmail()) {
+          this.emailError = true;
+          this.emailMsg = "Invalid email provided";
+        } else if (!(await this.isEmailUsed())) {
+          this.emailError = true;
+          this.emailMsg = "Unable to find an account with that email";
+        } else if (this.password.length < 8) {
+          this.passwordError = true;
+          this.passwordMsg = "A password of at least 8 characters is required";
+        } else {
+          // attempt to login
+
+          let resp = await fetch("http://localhost:3000/login", {
+            method: "POST",
+            headers: {
+              "content-type": "application/json"
+            },
+            body: JSON.stringify({
+              email: this.email,
+              password: this.password
+            })
+          });
+
+          if (resp.status == 200) {
+            this.$store.commit("setAuthentication", true);
+            this.$router.replace({ name: "Dashboard" });
+          } else {
+            this.passwordError = true;
+            this.passwordMsg = "Invalid password provided";
+          }
+
+          logInBtn.disabled = false;
+
+          console.log(resp);
+        }
+      } catch (e) {
+        console.log(e);
+        logInBtn.disabled = false;
       }
 
       // sets authentication enabled and re routes to dashboard

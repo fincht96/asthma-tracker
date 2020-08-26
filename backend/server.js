@@ -54,14 +54,16 @@ MongoClient.connect(mongoConnectionString, { useUnifiedTopology: true })
     );
 
     app.use(passport.initialize());
+
+    app.use(express.urlencoded({ extended: false }));
     app.use(bodyParser.json());
-    // app.use(express.urlencoded({ extended: false }));
+
     app.use(passport.session());
     app.use(methodOverride("_method"));
     app.use(express.static("public"));
 
     app.get("/", function (req, res, next) {
-      res.send({ a: 1});
+      res.send({ a: 1 });
     });
 
     app.post(
@@ -175,6 +177,19 @@ MongoClient.connect(mongoConnectionString, { useUnifiedTopology: true })
             },
           }
         );
+      } catch (e) {
+        console.log(e);
+      }
+    });
+
+    app.get("/user", checkNotAuthenticated, async (req, res) => {
+      try {
+        let result = await usersCollection.findOne({ _email: req.query.email });
+        if (result) {
+          res.sendStatus(200);
+        } else {
+          res.sendStatus(404);
+        }
       } catch (e) {
         console.log(e);
       }
