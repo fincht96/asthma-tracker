@@ -5,9 +5,7 @@
         <div class="navbar-brand">
           <div class="navbar-item" href="/">
             <!-- <div style="font-size: 20px;">Asthma Tracker</div> -->
-            <router-link to="/" style="font-size: 20px;"
-              >Asthma Tracker</router-link
-            >
+            <router-link to="/" style="font-size: 20px;">Asthma Tracker</router-link>
           </div>
 
           <a
@@ -51,9 +49,7 @@
     <div class="modal">
       <div class="modal-background"></div>
       <div class="modal-content">
-        <div style="width:100px; height:200px; background-color:white;">
-          Hello World
-        </div>
+        <div style="width:100px; height:200px; background-color:white;">Hello World</div>
       </div>
       <button class="modal-close is-large" aria-label="close"></button>
     </div>
@@ -70,16 +66,24 @@ export default {
 
   async created() {
     try {
-      let resp = await fetch("http://localhost:3000");
-      let a = await resp.json();
+      // let resp = await fetch("http://localhost:3000");
+      // let a = await resp.json();
 
-      if (a.a == 1) {
-        console.log("a is 1!");
-      }
+      // if (a.a == 1) {
+      //   console.log("a is 1!");
+      // }
+
+      console.log("called app");
+
+      let resp = await fetch("http://localhost:3000/loggedin", {
+        credentials: "include"
+      });
+
+      console.log(resp);
     } catch (e) {
       console.log(e);
     }
-  },
+  }
 };
 </script>
 

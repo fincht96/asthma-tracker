@@ -42,6 +42,7 @@ MongoClient.connect(mongoConnectionString, { useUnifiedTopology: true })
         "Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept"
       );
+      res.header("Access-Control-Allow-Credentials", "true");
       next();
     });
 
@@ -193,6 +194,13 @@ MongoClient.connect(mongoConnectionString, { useUnifiedTopology: true })
       } catch (e) {
         console.log(e);
       }
+    });
+
+    // if not logged in will be redirected to login webpage
+    app.get("/loggedin", checkAuthenticated, async (req, res) => {
+      console.log("called logged in");
+      
+      res.sendStatus(200);
     });
 
     function checkAuthenticated(req, res, next) {

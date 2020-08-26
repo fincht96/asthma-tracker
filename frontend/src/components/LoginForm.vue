@@ -139,6 +139,7 @@ export default {
 
           let resp = await fetch("http://localhost:3000/login", {
             method: "POST",
+            credentials: 'include', 
             headers: {
               "content-type": "application/json"
             },
