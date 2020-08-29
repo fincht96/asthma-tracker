@@ -1,7 +1,14 @@
+
+
 <template>
   <div id="app">
     <div id="nav">
-      <nav class="navbar" role="navigation" aria-label="main navigation">
+      <nav
+        class="navbar"
+        role="navigation"
+        aria-label="main navigation"
+        v-if="!this.$store.state.authenticated"
+      >
         <div class="navbar-brand">
           <div class="navbar-item" href="/">
             <!-- <div style="font-size: 20px;">Asthma Tracker</div> -->
@@ -66,6 +73,10 @@ export default {
 
   async created() {
     try {
+      if (!this.$store.state.authenticated) {
+        console.log("no");
+      }
+
       // let resp = await fetch("http://localhost:3000");
       // let a = await resp.json();
 
@@ -73,13 +84,15 @@ export default {
       //   console.log("a is 1!");
       // }
 
-      console.log("called app");
-
       let resp = await fetch("http://localhost:3000/loggedin", {
         credentials: "include"
       });
 
-      console.log(resp);
+      if (resp.status == 200) {
+        // sets authentication enabled and re routes to dashboard
+        this.$store.commit("setAuthentication", true);
+        this.$router.replace({ name: "Dashboard" });
+      }
     } catch (e) {
       console.log(e);
     }

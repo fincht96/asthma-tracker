@@ -166,9 +166,7 @@ export default {
         logInBtn.disabled = false;
       }
 
-      // sets authentication enabled and re routes to dashboard
-      // this.$store.commit("setAuthentication", true);
-      // this.$router.replace({ name: "Dashboard" });
+
     }
   },
   watch: {

@@ -1,13 +1,34 @@
 <template>
   <div class="dashboard">
     <h1>This is the dashboard page! Rock on!</h1>
+    <a v-on:click="onLogout()">Logout</a>
   </div>
 </template>
 <script>
 export default {
   name: "Dashboard",
 
-  methods: {},
+  methods: {
+    async onLogout() {
+      try {
+        let resp = await fetch("http://localhost:3000/logout?_method=DELETE", {
+          method: "POST",
+          credentials: "include"
+        });
+
+        if (resp.status == 200) {
+          // sets authentication disabled and re routes to login
+          this.$store.commit("setAuthentication", false);
+          this.$router.replace({ name: "Login" });
+        }
+      } catch (e) {
+        console.log(e);
+      }
+
+      // POST http://localhost:3000/logout?_method=DELETE
+      // send fetch request to log out
+    }
+  },
 
   async created() {
     try {
@@ -19,12 +40,6 @@ export default {
       // }
 
       console.log("called app");
-
-      let resp = await fetch("http://localhost:3000/loggedin", {
-        credentials: "include"
-      });
-
-      console.log(resp);
     } catch (e) {
       console.log(e);
     }

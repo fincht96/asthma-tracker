@@ -199,7 +199,7 @@ MongoClient.connect(mongoConnectionString, { useUnifiedTopology: true })
     // if not logged in will be redirected to login webpage
     app.get("/loggedin", checkAuthenticated, async (req, res) => {
       console.log("called logged in");
-      
+
       res.sendStatus(200);
     });
 
@@ -207,7 +207,10 @@ MongoClient.connect(mongoConnectionString, { useUnifiedTopology: true })
       if (req.isAuthenticated()) {
         return next();
       }
-      res.redirect("/login");
+
+      res.sendStatus(401);
+
+      // res.redirect("/login");
     }
 
     function checkNotAuthenticated(req, res, next) {
