@@ -86,15 +86,23 @@ export default {
       return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email);
     },
 
-    isEmailInUse() {
-      // check here for existing emails in database
-      // if (this.email == "finch851@gmail.com") {
-      //   this.emailError = "Looks like this email is already in use";
-      //   isValid = 1;
-      // }
+    async isEmailUsed() {
+      try {
+        var url = new URL("http://localhost:3000/user");
+        var params = { email: this.email }; // or:
+        url.search = new URLSearchParams(params).toString();
 
-      if (this.email == "finch851@gmail.com") {
-        return true;
+        let resp = await fetch(url);
+
+        console.log(resp);
+
+        if (resp.status == 200) {
+          return true;
+        }
+
+        return false;
+      } catch (e) {
+        console.log(e);
       }
 
       return false;
@@ -111,7 +119,6 @@ export default {
     },
 
     async signUpRequest() {
-
       const signUpBtn = document.getElementById("signUpBtn");
       signUpBtn.disabled = true;
 
@@ -119,7 +126,7 @@ export default {
       if (!this.isValidEmail()) {
         this.emailMsg = "Invalid email provided";
       } else {
-        if (this.isEmailInUse()) {
+        if (this.isEmailUsed()) {
           this.emailMsg = "Email is already in use";
         }
         if (this.email.length > 99) {
@@ -211,7 +218,7 @@ export default {
         if (password.length === 0) {
           updateMeter("0%", "#00cc7a", "");
         } else {
-          updateMeter("10%", "#ff8080", "Very Low Strength");
+          updateMeter("10%", "#ff3000", "Very Low Strength");
         }
       }
       if (passwordScore == 1) updateMeter("20%", "#ff6666", "Low Strength");

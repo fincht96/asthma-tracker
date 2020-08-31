@@ -13,9 +13,13 @@ const bcrypt = require("bcrypt");
 const port = process.env.PORT || port;
 const initializePassport = require("./passport.config");
 const ObjectId = require("mongodb").ObjectID;
-const app = express();
+
 const MongoClient = require("mongodb").MongoClient;
 const bodyParser = require("body-parser");
+
+const cors = require("cors");
+
+const app = express();
 
 MongoClient.connect(mongoConnectionString, { useUnifiedTopology: true })
   .then((client) => {
@@ -35,16 +39,22 @@ MongoClient.connect(mongoConnectionString, { useUnifiedTopology: true })
         return usersCollection.findOne(ObjectId(id));
       }
     );
+ 
 
-    app.use(function (req, res, next) {
-      res.header("Access-Control-Allow-Origin", "http://localhost:8080"); // update to match the domain you will make the request from
-      res.header(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept"
-      );
-      res.header("Access-Control-Allow-Credentials", "true");
-      next();
-    });
+    app.use(cors({
+      origin: 'http://localhost:8080',
+      credentials: true,
+    }));
+
+    // app.use(function (req, res, next) {
+    //   res.header("Access-Control-Allow-Origin", "http://localhost:8080"); // update to match the domain you will make the request from
+    //   res.header(
+    //     "Access-Control-Allow-Headers",
+    //     "Origin, X-Requested-With, Content-Type, Accept"
+    //   );
+    //   res.header("Access-Control-Allow-Credentials", "true");
+    //   next();
+    // });
 
     app.use(
       session({
@@ -53,6 +63,8 @@ MongoClient.connect(mongoConnectionString, { useUnifiedTopology: true })
         saveUninitialized: false,
       })
     );
+
+   
 
     app.use(passport.initialize());
 
@@ -72,7 +84,6 @@ MongoClient.connect(mongoConnectionString, { useUnifiedTopology: true })
       checkNotAuthenticated,
       passport.authenticate("local"),
       function (req, res) {
-        console.log("Valid login!");
         res.sendStatus(200);
       }
     );

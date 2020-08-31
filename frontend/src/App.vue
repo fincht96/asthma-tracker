@@ -2,12 +2,12 @@
 
 <template>
   <div id="app">
-    <div id="nav">
+    <div id="nav" v-if="!this.$store.state.authenticated">
       <nav
         class="navbar"
         role="navigation"
         aria-label="main navigation"
-        v-if="!this.$store.state.authenticated"
+        
       >
         <div class="navbar-brand">
           <div class="navbar-item" href="/">
@@ -87,6 +87,8 @@ export default {
       let resp = await fetch("http://localhost:3000/loggedin", {
         credentials: "include"
       });
+
+      console.log(resp)
 
       if (resp.status == 200) {
         // sets authentication enabled and re routes to dashboard

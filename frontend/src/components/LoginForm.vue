@@ -35,6 +35,7 @@
               type="password"
               oninput="return false"
               onpaste="return false"
+              v-on:keyup.enter="loginRequest()"
               :class="{
                 'is-danger': passwordError,
               }"
@@ -157,10 +158,13 @@ export default {
             this.passwordMsg = "Invalid password provided";
           }
 
-          logInBtn.disabled = false;
+       
 
           console.log(resp);
         }
+
+        logInBtn.disabled = false;
+
       } catch (e) {
         console.log(e);
         logInBtn.disabled = false;
