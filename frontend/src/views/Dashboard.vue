@@ -14,15 +14,15 @@
         </div>
 
         <div>
-          <img src="../assets/graph-128.svg" style="width:30px; height:30px; " />
+          <img class="menu-icon" src="../assets/graph-128.svg" />
         </div>
 
         <div>
-          <img src="../assets/calendar-128.svg" style="width:30px; height:30px; " />
+          <img class="menu-icon" src="../assets/calendar-128.svg" />
         </div>
 
         <div>
-          <img src="../assets/table-128.svg" style="width:30px; height:30px; " />
+          <img class="menu-icon selected" src="../assets/table-128.svg" />
         </div>
       </div>
     </div>
@@ -30,57 +30,67 @@
     <div style="height: 75px;"></div>
 
     <div id="table1">
-      <table class="table" style="width:100%;">
+      <table class="table" style="width:100%; table-layout: fixed;">
         <thead>
           <tr>
             <th>When</th>
-            <th>Peak Flow (L/min)</th>
+            <th >Peak Flow (L/min)</th>
             <th>Medication</th>
-            <th>Comment</th>
+            <th style="width:55%">Comment</th>
           </tr>
         </thead>
 
         <tbody>
           <tr>
-            <td>31/08/20</td>
+            <td>Mon, 31 Aug 2020, 07:42</td>
             <td>600</td>
             <td>Pre-Med</td>
-            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus at orci et turpis vestibulum luctus at eu magna. Curabitur volutpat gravida suscipit. Morbi tincidunt sollicitudin pellentesque. Cras sagittis id sapien sed ornare. Ut aliquet, arcu vel viverra finibus, lectus augue convallis quam, at finibus justo orci ac metus. Duis iaculis elit id ipsum scelerisque, sed bibendum nisl placerat.</td>
+            <td
+              class="comment"
+            >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus at orci et turpis vestibulum luctus at eu magna. Curabitur volutpat gravida suscipit. Morbi tincidunt sollicitudin pellentesque. Cras sagittis id sapien sed ornare. Ut aliquet, arcu vel viverra finibus, lectus augue convallis quam, at finibus justo orci ac metus. Duis iaculis elit id ipsum scelerisque, sed bibendum nisl placerat.</td>
           </tr>
 
           <tr>
-            <td>01/09/20</td>
+            <td>Tue, 1 Sep 2020, 08:46</td>
             <td>620</td>
             <td>Post-Med</td>
-            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus at orci et turpis vestibulum luctus at eu magna. Curabitur volutpat gravida suscipit. Morbi tincidunt sollicitudin pellentesque. Cras sagittis id sapien sed ornare. Ut aliquet, arcu vel viverra finibus, lectus augue convallis quam, at finibus justo orci ac metus. Duis iaculis elit id ipsum scelerisque, sed bibendum nisl placerat.</td>
+            <td
+              class="comment"
+            >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus at orci et turpis vestibulum luctus at eu magna. Curabitur volutpat gravida suscipit. Morbi tincidunt sollicitudin pellentesque. Cras sagittis id sapien sed ornare. Ut aliquet, arcu vel viverra finibus, lectus augue convallis quam, at finibus justo orci ac metus. Duis iaculis elit id ipsum scelerisque, sed bibendum nisl placerat.</td>
           </tr>
 
           <tr>
-            <td>02/09/20</td>
+            <td>Wed, 2 Sep 2020, 08:22</td>
             <td>612</td>
             <td>Post-Med</td>
-            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur volutpat gravida suscipit. Morbi tincidunt sollicitudin pellentesque. Cras sagittis id sapien sed ornare. Ut aliquet, arcu vel viverra finibus, lectus augue convallis quam, at finibus justo orci ac metus. Duis iaculis elit id ipsum scelerisque, sed bibendum nisl placerat.</td>
+            <td
+              class="comment"
+            >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur volutpat gravida suscipit. Morbi tincidunt sollicitudin pellentesque. Cras sagittis id sapien sed ornare. Ut aliquet, arcu vel viverra finibus, lectus augue convallis quam, at finibus justo orci ac metus. Duis iaculis elit id ipsum scelerisque, sed bibendum nisl placerat.</td>
           </tr>
 
           <tr>
-            <td>03/09/20</td>
+            <td>Thu, 3 Sep 2020, 08:34</td>
             <td>630</td>
             <td>Post-Med</td>
-            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+            <td class="comment">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
           </tr>
 
           <tr>
-            <td>04/09/20</td>
+            <td>Fri, 4 Sep 2020, 08:24</td>
             <td>680</td>
             <td>None</td>
-            <td>Vivamus at orci et turpis vestibulum luctus at eu magna. Curabitur volutpat gravida suscipit. Morbi tincidunt sollicitudin pellentesque. Cras sagittis id sapien sed ornare. Ut aliquet, arcu vel viverra finibus, lectus augue convallis quam, at finibus justo orci ac metus. Duis iaculis elit id ipsum scelerisque, sed bibendum nisl placerat.</td>
+            <td
+              class="comment"
+            >Vivamus at orci et turpis vestibulum luctus at eu magna. Curabitur volutpat gravida suscipit. Morbi tincidunt sollicitudin pellentesque. Cras sagittis id sapien sed ornare. Ut aliquet, arcu vel viverra finibus, lectus augue convallis quam, at finibus justo orci ac metus. Duis iaculis elit id ipsum scelerisque, sed bibendum nisl placerat.</td>
           </tr>
 
           <tr>
-            <td>05/09/20</td>
+            <td>Sat, 5 Sep 2020, 08:21</td>
             <td>520</td>
             <td>Pre-Med</td>
-            <td>Vivamus at orci et turpis vestibulum luctus at eu magna. Curabitur volutpat gravida suscipit. Morbi tincidunt sollicitudin pellentesque. Cras sagittis id sapien sed ornare. Ut aliquet, arcu vel viverra finibus, lectus augue convallis quam, at finibus justo orci ac metus. Duis iaculis elit id ipsum scelerisque, sed bibendum nisl placerat.</td>
+            <td
+              class="comment"
+            >Vivamus at orci et turpis vestibulum luctus at eu magna. Curabitur volutpat gravida suscipit. Morbi tincidunt sollicitudin pellentesque. Cras sagittis id sapien sed ornare. Ut aliquet, arcu vel viverra finibus, lectus augue convallis quam, at finibus justo orci ac metus. Duis iaculis elit id ipsum scelerisque, sed bibendum nisl placerat.</td>
           </tr>
         </tbody>
       </table>
@@ -173,7 +183,7 @@ export default {
 
 #table1 {
   width: 100%;
-  max-width: 1100px;
+  max-width: 1250px;
   padding: 0px 20px;
 }
 
@@ -182,7 +192,7 @@ export default {
   height: 40px;
   border-radius: 20px;
   font-size: 18px;
-  color: #fff;
+  color: #363636;
   line-height: 40px;
   text-align: center;
   background: #f9b9f2;
@@ -203,7 +213,7 @@ export default {
   height: 60px;
   border-radius: 30px;
   font-size: 32px;
-  color: #fff;
+  color: #363636;
   line-height: 60px;
   text-align: center;
   background: #83a0a0;
@@ -244,10 +254,14 @@ export default {
   z-index: 1;
   right: 0;
   margin-top: 180px;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
 }
 
 .dropdown-content a {
-  color: black;
+  color: #363636;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
@@ -270,6 +284,51 @@ export default {
   justify-content: center;
   align-items: center;
   margin-left: 30px;
+}
+
+thead {
+  font-size: 14px;
+  color: #363636;
+}
+
+tbody {
+  font-size: 14px;
+  color: #363636;
+}
+
+th {
+  margin: 0px 10px;
+}
+
+td {
+  margin: 0px 10px;
+  vertical-align: middle;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.comment {
+  text-align: justify;
+}
+
+.menu-icon {
+  width: 30px;
+  height: 30px;
+  opacity: 60%;
   cursor: pointer;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.menu-icon:hover {
+  opacity: 100%;
+}
+
+.selected {
+  opacity: 100%;
 }
 </style>

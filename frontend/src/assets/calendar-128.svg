@@ -1,11 +1,21 @@
 <?xml version="1.0" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="body_2" width="128" height="128">
-
-<g transform="matrix(1 0 0 1 0 0)">
-	<g transform="matrix(1 0 0 1 0 0)">
-        <path d="M0 0L0 128L128 128L128 0" stroke="none" fill="#FFFFFF" fill-rule="evenodd" />
-	</g>
-    <image  x="0" y="0" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAIAAABMXPacAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAEF0lEQVR4nO2bPy8sYRyFdyMRESJaEgWRkGwoScQnQBRrNRqJ0KsUVAqFhFKUNBJZym3wDSj02+mIv1Gx7L0n2dwtZnnnzoz3Pe+s8/TjnPN7lmKQ+SOoZNgFfjsSQEYCyEgAGQkgIwFkJICMBJCRADI0AZ+fn1dXVycnJxcXF6+vr+4LIBTRKIAaKOO+QA2OgFKpNDAwkPlHe3v7xsbG+/u7m3QEIQ6h9QIog0pu0gMQBBwdHWWz2UwDc3NzDj6JiEBQYzoqoZjt9EZcC7i9ve3o6GjcX+Pg4MB2AUR8l45iqGe7QADXAnZ2dr7bD8bHx20XQIShAOrZLhDAtYCFhQXD/tbWVtsFEGEogHq2CwRwLSCfzxv2A9sFzOmoZ7tAsI/jPAkI9nGcJwHBPo7zJCDYx3GeBAT7JP8S1Wr1+vp6d3d3eXm5UCjkjfT09ISewCrmdNQzP46BmImxmIzhZAFocHp6Ojo6al7VrIyMjBSLxYQa4gt4fn6enZ1lH4HP9PT04+OjawH39/fwz97uC7lc7u7uzp2ASqUyOTnJXu0XExMT8d7mxhGwvb3N3usjW1tbLgS8vLx0dXWxx/pIZ2fn09OTdQH7+/vspf6yt7dnXcDMzAx7pr9MTU1ZF9Db28ue6S84jnUBLS0t7Jn+guNYF2BukA97lxL6MiBqn7T3lwAJkIBUD0h7fwn4ZQIKhYLh8Ww2G7VPVL78m7A6qGd+PPUC1tbWDI/39/dH7RMVRBgKoJ758dQLuLy8TLI/OeZPAOqZH0+9ALC0tPTls319fUl+s/GfIAJBXxZAsdDHm0HA29tbo4NcLlcul6OWiQeCENd4fRQLfbYZBNTANzt+GszPz6+srBwfH1cqlahNkoA4hCIaBVAj9CdPneYRkFIkgIwEkJEAMhJARgLISAAZCSAjAWQkgIzvAkL/vj7thP5/A1mAkAAyEkBGAshIABkJICMBZCSAjASQkQAyZAF5vQuKiAREQwLISAAZCSAjAWQkgIwEkJEAMhJARgLISAAZCSAjAWQkgIwEkJEAMhJARgLISAAZCSAjAWQkgIwEkJEAMhJARgLISAAZCSAjAWQkgIwEkJEAMhJARgLISAAZCSAjAWQkgIwEkJEAMhJAxncBY2NjxaYGA8kC2trazA1+MziOdQFDQ0Psmf6C41gXsLi4yJ7pLziOdQGlUok9019wHOsCPj4+hoeH2Ut9BGfBcawLAOfn5+yxPoKzxDhmHAFgfX2dvdcvcJB4l4wpoFqtrq6uslf7Ak6BgzgVUOPw8LC7u5s9nwnm4whJbphIAHh4eNjc3BwcHGSfwjWYjOGYn/CASQXUubm5OTs7Y78pcAFmYuxP3e3HBIh4SAAZCSAjAWQkgIwEkJEAMhJARgLISACZv6ui2wcHKHl/AAAAAElFTkSuQmCC" width="128" height="128"/>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+ "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+ width="128.000000pt" height="128.000000pt" viewBox="0 0 128.000000 128.000000"
+ preserveAspectRatio="xMidYMid meet">
+<metadata>
+Created by potrace 1.10, written by Peter Selinger 2001-2011
+</metadata>
+<g transform="translate(0.000000,128.000000) scale(0.050000,-0.050000)"
+fill="#3b3b3b" stroke="none">
+<path d="M771 2302 c-22 -25 -32 -62 -28 -104 l7 -65 -130 4 c-298 10 -300 3
+-300 -970 0 -822 2 -842 87 -912 66 -52 1680 -52 1746 0 85 70 87 90 87 912 0
+973 -2 980 -300 970 l-130 -4 7 65 c8 82 -43 142 -119 142 -66 0 -98 -47 -98
+-144 l0 -66 -320 0 -320 0 0 66 c0 137 -107 196 -189 106z m-25 -422 c-31
+-119 70 -214 163 -152 41 26 51 49 51 112 l0 80 320 0 320 0 0 -80 c0 -63 10
+-86 51 -112 93 -62 194 33 163 152 -9 36 0 40 103 40 l113 0 -4 -211 -3 -210
+-743 0 -743 0 -3 210 -4 211 113 0 c103 0 112 -4 103 -40z m1280 -1025 l-4
+-425 -742 0 -742 0 -4 425 -4 425 750 0 750 0 -4 -425z"/>
 </g>
 </svg>
