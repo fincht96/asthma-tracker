@@ -1,14 +1,11 @@
 <template>
   <div id="dashboard">
+    <div class="action-icon">+</div>
+
     <div id="menu">
       <div class="flex-container">
-        <div class="dropdown" style="flex-grow:1">
-          <div
-            ref="accnt-btn"
-            class="user-icon dropbtn"
-            style="margin-left: auto;"
-            v-on:click="dropDownClicked()"
-          >TF</div>
+        <div class="dropdown">
+          <div ref="accnt-btn" class="user-icon dropbtn" v-on:click="dropDownClicked()">TF</div>
 
           <div id="myDropdown" class="dropdown-content">
             <a href="/profile">My Account</a>
@@ -16,12 +13,21 @@
           </div>
         </div>
 
-        <div style="flex-grow:3; text-align:left;"></div>
-        <div style="flex-grow:5; text-align:left;"></div>
+        <div>
+          <img src="../assets/graph-128.svg" style="width:30px; height:30px; " />
+        </div>
+
+        <div>
+          <img src="../assets/calendar-128.svg" style="width:30px; height:30px; " />
+        </div>
+
+        <div>
+          <img src="../assets/table-128.svg" style="width:30px; height:30px; " />
+        </div>
       </div>
     </div>
 
-    <div style="height: 100px;"></div>
+    <div style="height: 75px;"></div>
 
     <div id="table1">
       <table class="table" style="width:100%;">
@@ -49,28 +55,28 @@
             <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus at orci et turpis vestibulum luctus at eu magna. Curabitur volutpat gravida suscipit. Morbi tincidunt sollicitudin pellentesque. Cras sagittis id sapien sed ornare. Ut aliquet, arcu vel viverra finibus, lectus augue convallis quam, at finibus justo orci ac metus. Duis iaculis elit id ipsum scelerisque, sed bibendum nisl placerat.</td>
           </tr>
 
-                    <tr>
+          <tr>
             <td>02/09/20</td>
             <td>612</td>
             <td>Post-Med</td>
             <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur volutpat gravida suscipit. Morbi tincidunt sollicitudin pellentesque. Cras sagittis id sapien sed ornare. Ut aliquet, arcu vel viverra finibus, lectus augue convallis quam, at finibus justo orci ac metus. Duis iaculis elit id ipsum scelerisque, sed bibendum nisl placerat.</td>
           </tr>
 
-                    <tr>
+          <tr>
             <td>03/09/20</td>
             <td>630</td>
             <td>Post-Med</td>
-            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </td>
+            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
           </tr>
 
-                    <tr>
+          <tr>
             <td>04/09/20</td>
             <td>680</td>
             <td>None</td>
             <td>Vivamus at orci et turpis vestibulum luctus at eu magna. Curabitur volutpat gravida suscipit. Morbi tincidunt sollicitudin pellentesque. Cras sagittis id sapien sed ornare. Ut aliquet, arcu vel viverra finibus, lectus augue convallis quam, at finibus justo orci ac metus. Duis iaculis elit id ipsum scelerisque, sed bibendum nisl placerat.</td>
           </tr>
 
-                    <tr>
+          <tr>
             <td>05/09/20</td>
             <td>520</td>
             <td>Pre-Med</td>
@@ -113,6 +119,18 @@ export default {
 
   async created() {
     try {
+      window.onclick = function(event) {
+        if (!event.target.matches(".dropbtn")) {
+          var dropdowns = document.getElementsByClassName("dropdown-content");
+          var i;
+          for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains("show")) {
+              openDropdown.classList.remove("show");
+            }
+          }
+        }
+      };
       // let resp = await fetch("http://localhost:3000");
       // let a = await resp.json();
 
@@ -155,17 +173,17 @@ export default {
 
 #table1 {
   width: 100%;
-  max-width: 1000px;
+  max-width: 1100px;
   padding: 0px 20px;
 }
 
 .user-icon {
-  width: 50px;
-  height: 50px;
-  border-radius: 25px;
-  font-size: 21px;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  font-size: 18px;
   color: #fff;
-  line-height: 50px;
+  line-height: 40px;
   text-align: center;
   background: #f9b9f2;
   -webkit-user-select: none; /* Safari */
@@ -173,6 +191,35 @@ export default {
   -ms-user-select: none; /* IE10+/Edge */
   user-select: none; /* Standard */
   cursor: pointer;
+  box-sizing: border-box;
+}
+
+.user-icon:hover {
+  background: #e0a6da;
+}
+
+.action-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  font-size: 32px;
+  color: #fff;
+  line-height: 60px;
+  text-align: center;
+  background: #83a0a0;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+  cursor: pointer;
+
+  position: fixed;
+  bottom: 30px;
+  right: 25px;
+}
+
+.action-icon:hover {
+  background: #728c8c;
 }
 
 /* The container <div> - needed to position the dropdown content */
@@ -196,7 +243,7 @@ export default {
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
   right: 0;
-  margin-top: 10px;
+  margin-top: 180px;
 }
 
 .dropdown-content a {
@@ -216,5 +263,13 @@ export default {
   display: flex;
   flex-wrap: nowrap;
   flex-direction: row-reverse;
+}
+
+.flex-container > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 30px;
+  cursor: pointer;
 }
 </style>
