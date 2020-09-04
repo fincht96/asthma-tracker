@@ -1,6 +1,58 @@
 <template>
   <div>
     <canvas id="myChart"></canvas>
+
+    <div class="flex-container">
+      <div
+        class="flex-item "
+        v-bind:class="{ selected: selectedScale == 0 }"
+        v-on:click="selectedScale = 0"
+      >
+        1 Day
+      </div>
+      <div
+        class="flex-item"
+        v-bind:class="{ selected: selectedScale == 1 }"
+        v-on:click="selectedScale = 1"
+      >
+        5 Days
+      </div>
+      <div
+        class="flex-item"
+        v-bind:class="{ selected: selectedScale == 2 }"
+        v-on:click="selectedScale = 2"
+      >
+        1 Month
+      </div>
+      <div
+        class="flex-item"
+        v-bind:class="{ selected: selectedScale == 3 }"
+        v-on:click="selectedScale = 3"
+      >
+        6 Months
+      </div>
+      <div
+        class="flex-item"
+        v-bind:class="{ selected: selectedScale == 4 }"
+        v-on:click="selectedScale = 4"
+      >
+        1 Year
+      </div>
+      <div
+        class="flex-item"
+        v-bind:class="{ selected: selectedScale == 5 }"
+        v-on:click="selectedScale = 5"
+      >
+        5 Years
+      </div>
+      <div
+        class="flex-item"
+        v-bind:class="{ selected: selectedScale == 6 }"
+        v-on:click="selectedScale = 6"
+      >
+        Max
+      </div>
+    </div>
   </div>
 </template>
 
@@ -81,9 +133,31 @@ export default {
   data: function() {
     return {
       data: [],
+
+      selectedScale: 0,
     };
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.flex-container {
+  display: flex;
+  align-items: stretch;
+  margin-top: 70px;
+}
+
+.flex-item {
+  color: #666;
+  text-align: center;
+  font-size: 13px;
+  padding-bottom: 15px;
+  /* border-bottom: solid 2px #e6e6e6; */
+  flex-grow: 1;
+  cursor: pointer;
+}
+
+.selected {
+  border-bottom: solid 2px #808080;
+}
+</style>
