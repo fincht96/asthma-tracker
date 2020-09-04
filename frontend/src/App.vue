@@ -29,7 +29,7 @@
         </div>
 
         <div id="navbarBasicExample" class="navbar-menu">
-          <div class="navbar-start">
+          <!-- <div class="navbar-start">
             <div class="navbar-item">
               <router-link to="/">Home</router-link>
             </div>
@@ -37,7 +37,7 @@
             <div class="navbar-item">
               <router-link to="/about">About</router-link>
             </div>
-          </div>
+          </div> -->
 
           <div class="navbar-end">
             <div class="navbar-item">

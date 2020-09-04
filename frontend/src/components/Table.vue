@@ -1,5 +1,5 @@
 <template>
-  <div id="table1">
+  <div id="table">
     <table class="table" style="width:100%; table-layout: fixed;">
       <thead>
         <tr>
@@ -10,62 +10,54 @@
         </tr>
       </thead>
 
-      <tbody>
-        <tr>
-          <td>Mon, 31 Aug 2020, 07:42</td>
-          <td>600</td>
-          <td>Pre-Med</td>
-          <td
-            class="comment"
-          >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus at orci et turpis vestibulum luctus at eu magna. Curabitur volutpat gravida suscipit. Morbi tincidunt sollicitudin pellentesque. Cras sagittis id sapien sed ornare. Ut aliquet, arcu vel viverra finibus, lectus augue convallis quam, at finibus justo orci ac metus. Duis iaculis elit id ipsum scelerisque, sed bibendum nisl placerat.</td>
-        </tr>
-
-        <tr>
-          <td>Tue, 1 Sep 2020, 08:46</td>
-          <td>620</td>
-          <td>Post-Med</td>
-          <td
-            class="comment"
-          >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus at orci et turpis vestibulum luctus at eu magna. Curabitur volutpat gravida suscipit. Morbi tincidunt sollicitudin pellentesque. Cras sagittis id sapien sed ornare. Ut aliquet, arcu vel viverra finibus, lectus augue convallis quam, at finibus justo orci ac metus. Duis iaculis elit id ipsum scelerisque, sed bibendum nisl placerat.</td>
-        </tr>
-
-        <tr>
-          <td>Wed, 2 Sep 2020, 08:22</td>
-          <td>612</td>
-          <td>Post-Med</td>
-          <td
-            class="comment"
-          >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur volutpat gravida suscipit. Morbi tincidunt sollicitudin pellentesque. Cras sagittis id sapien sed ornare. Ut aliquet, arcu vel viverra finibus, lectus augue convallis quam, at finibus justo orci ac metus. Duis iaculis elit id ipsum scelerisque, sed bibendum nisl placerat.</td>
-        </tr>
-
-        <tr>
-          <td>Thu, 3 Sep 2020, 08:34</td>
-          <td>630</td>
-          <td>Post-Med</td>
-          <td class="comment">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
-        </tr>
-
-        <tr>
-          <td>Fri, 4 Sep 2020, 08:24</td>
-          <td>680</td>
-          <td>None</td>
-          <td
-            class="comment"
-          >Vivamus at orci et turpis vestibulum luctus at eu magna. Curabitur volutpat gravida suscipit. Morbi tincidunt sollicitudin pellentesque. Cras sagittis id sapien sed ornare. Ut aliquet, arcu vel viverra finibus, lectus augue convallis quam, at finibus justo orci ac metus. Duis iaculis elit id ipsum scelerisque, sed bibendum nisl placerat.</td>
-        </tr>
-
-        <tr>
-          <td>Sat, 5 Sep 2020, 08:21</td>
-          <td>520</td>
-          <td>Pre-Med</td>
-          <td
-            class="comment"
-          >Vivamus at orci et turpis vestibulum luctus at eu magna. Curabitur volutpat gravida suscipit. Morbi tincidunt sollicitudin pellentesque. Cras sagittis id sapien sed ornare. Ut aliquet, arcu vel viverra finibus, lectus augue convallis quam, at finibus justo orci ac metus. Duis iaculis elit id ipsum scelerisque, sed bibendum nisl placerat.</td>
+      <tbody v-if="this.$store.getters.entries.length">
+        <tr
+          v-for="(entry, index) in entries"
+          :key="index"
+          v-on:click="entrySelected(entry, index)"
+        >
+          <td>{{ formattedDate(entry.date) }}</td>
+          <td>{{ entry.peakFlow }}</td>
+          <td>{{ entry.medication }}</td>
+          <td>
+            <div class="comment">{{ entry.comment }}</div>
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
 </template>
+
+<script>
+export default {
+  name: "LoginForm",
+
+  mounted: function() {},
+
+  data: function() {
+    return {
+      entries: this.$store.getters.entries,
+    };
+  },
+
+  methods: {
+    entrySelected(entry, index) {
+      console.log("entry: ", index, " selected");
+    },
+
+    formattedDate(date) {
+      date = new Date(date);
+      let day = ("0" + date.getDate()).slice(-2);
+      let month = date.toLocaleString("default", { month: "short" });
+      let year = date.getFullYear();
+      let hours = ("0" + date.getHours()).slice(-2);
+      let mins = ("0" + date.getMinutes()).slice(-2);
+
+      return `${month} ${day}, ${year} ${hours}:${mins}`;
+    },
+  },
+};
+</script>
 
 <style scoped>
 thead {
@@ -93,5 +85,18 @@ td {
 
 .comment {
   text-align: justify;
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+#table {
+  width: 100%;
+  max-width: 1250px;
+  padding: 0px 20px;
+}
+
+p {
+  margin: auto;
+  width: 80%;
 }
 </style>

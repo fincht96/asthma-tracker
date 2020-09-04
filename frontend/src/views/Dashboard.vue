@@ -1,13 +1,21 @@
 <template>
   <div id="dashboard">
-    <DashboardModal />
+
+
+    <DashboardModal v-if="showModal" />
 
     <div class="action-icon" v-on:click="showModal = true">+</div>
 
     <div id="menu">
       <div class="flex-container">
         <div class="dropdown">
-          <div ref="accnt-btn" class="user-icon dropbtn" v-on:click="dropDownClicked()">TF</div>
+          <div
+            ref="accnt-btn"
+            class="user-icon dropbtn"
+            v-on:click="dropDownClicked()"
+          >
+            TF
+          </div>
 
           <div id="myDropdown" class="dropdown-content">
             <a href="/profile">My Account</a>
@@ -17,7 +25,7 @@
 
         <div>
           <img
-            v-bind:class="{selected : selectedMenu == 'graph'}"
+            v-bind:class="{ selected: selectedMenu == 'graph' }"
             v-on:click="selectedMenu = 'graph'"
             class="menu-icon"
             src="../assets/graph-128.svg"
@@ -26,7 +34,7 @@
 
         <div>
           <img
-            v-bind:class="{selected : selectedMenu == 'calendar'}"
+            v-bind:class="{ selected: selectedMenu == 'calendar' }"
             v-on:click="selectedMenu = 'calendar'"
             class="menu-icon"
             src="../assets/calendar-128.svg"
@@ -35,7 +43,7 @@
 
         <div>
           <img
-            v-bind:class="{selected : selectedMenu == 'table'}"
+            v-bind:class="{ selected: selectedMenu == 'table' }"
             v-on:click="selectedMenu = 'table'"
             class="menu-icon"
             src="../assets/table-128.svg"
@@ -57,6 +65,9 @@ import DashboardModal from "@/components/DashboardModal.vue";
 import Table from "@/components/Table.vue";
 import Calendar from "@/components/Calendar.vue";
 import Graph from "@/components/Graph.vue";
+import { EventBus } from "@/event_bus/event_bus.js";
+
+import flatpickr from "flatpickr";
 
 export default {
   name: "Dashboard",
@@ -64,7 +75,7 @@ export default {
     DashboardModal,
     Table,
     Calendar,
-    Graph
+    Graph,
   },
 
   methods: {
@@ -76,7 +87,7 @@ export default {
       try {
         let resp = await fetch("http://localhost:3000/logout?_method=DELETE", {
           method: "POST",
-          credentials: "include"
+          credentials: "include",
         });
 
         if (resp.status == 200) {
@@ -90,10 +101,14 @@ export default {
 
       // POST http://localhost:3000/logout?_method=DELETE
       // send fetch request to log out
-    }
+    },
   },
 
   async created() {
+    EventBus.$on("close-dashboard-modal", () => {
+      this.showModal = false;
+    });
+
     try {
       window.onclick = function(event) {
         if (!event.target.matches(".dropbtn")) {
@@ -120,13 +135,17 @@ export default {
     }
   },
 
+  mounted() {
+
+  },
+
   data: function() {
     return {
       dropdownOpen: true,
       showModal: false,
-      selectedMenu: "table"
+      selectedMenu: "table",
     };
-  }
+  },
 };
 </script>
 
@@ -147,12 +166,6 @@ export default {
   box-sizing: border-box;
   padding: 0px 20px;
   // margin-right:20px;
-}
-
-#table1 {
-  width: 100%;
-  max-width: 1250px;
-  padding: 0px 20px;
 }
 
 .user-icon {
