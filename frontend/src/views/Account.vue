@@ -114,9 +114,100 @@
           </p>
         </div>
       </div>
-    </div>
 
-    <flatPickr v-if="selectedItem == 1" />
+      <div v-if="selectedItem == 1">
+        <div style="height:60px;" />
+
+        <div style="margin-left:20px;">
+          <p
+            style="letter-spacing: 0.0625em; font-weight:lighter; color:#ccc; text-align:left; font-size: 16px;"
+          >
+            First name
+          </p>
+          <p
+            style="letter-spacing: 0.0625em; font-weight:lighter; color:#666; text-align:left; font-size: 20px;"
+          >
+            Thomas
+          </p>
+
+          <div style="height:50px;" />
+
+          <p
+            style="letter-spacing: 0.0625em; font-weight:lighter; color:#ccc; text-align:left; font-size: 16px;"
+          >
+            Last name
+          </p>
+          <p
+            style="letter-spacing: 0.0625em; font-weight:lighter; color:#666; text-align:left; font-size: 20px;"
+          >
+            Finch
+          </p>
+
+          <div style="height:50px;" />
+
+
+          <p
+            style="letter-spacing: 0.0625em; font-weight:lighter; color:#ccc; text-align:left; font-size: 16px;"
+          >
+            Height
+          </p>
+          <p
+            style="letter-spacing: 0.0625em; font-weight:lighter; color:#666; text-align:left; font-size: 20px;"
+          >
+            6'1"
+          </p>
+
+          <div style="height:50px;" />
+
+          <p
+            style="letter-spacing: 0.0625em; font-weight:lighter; color:#ccc; text-align:left; font-size: 16px;"
+          >
+            Date of birth
+          </p>
+          <p
+            style="letter-spacing: 0.0625em; font-weight:lighter; color:#666; text-align:left; font-size: 20px;"
+          >
+            24/03/1996
+          </p>
+
+          <div style="height:50px;" />
+
+
+          <p
+            style="letter-spacing: 0.0625em; font-weight:lighter; color:#ccc; text-align:left; font-size: 16px;"
+          >
+            Email Address
+          </p>
+          <p
+            style="letter-spacing: 0.0625em; font-weight:lighter; color:#666; text-align:left; font-size: 20px;"
+          >
+            fincht96@gmail.com
+          </p>
+
+          <div style="height:50px;" />
+
+          <p
+            style="letter-spacing: 0.0625em; font-weight:lighter; color:#ccc; text-align:left; font-size: 16px;"
+          >
+            Password
+          </p>
+          <p
+            style="letter-spacing: 0.0625em; font-weight:lighter; color:#666; text-align:left; font-size: 20px;"
+          >
+            &#8226; &#8226; &#8226; &#8226; &#8226; &#8226; &#8226; &#8226;
+            &#8226;
+          </p> 
+
+
+           <div style="height:100px;" />
+
+
+          <button class="button is-danger is-light" style="width: 100%;">Delete account</button>
+
+          <flatPickr hidden />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -264,6 +355,7 @@ export default {
   padding-bottom: 15px;
   border-bottom: solid 3px #e6e6e6;
   flex-grow: 1;
+  flex-basis: 0;
   cursor: pointer;
 }
 
