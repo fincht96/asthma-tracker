@@ -72,6 +72,8 @@ export default {
         x: this.$store.getters.entries[i].date,
         y: this.$store.getters.entries[i].peakFlow,
       };
+
+      console.log(newDataItem);
       this.data.push(newDataItem);
     }
 
@@ -117,9 +119,23 @@ export default {
           xAxes: [
             {
               type: "time",
+              time: {
+                displayFormats: {
+                  millisecond: "h:mm a",
+                  second: "h:mm a",
+                  minute: "h:mm a",
+                  hour: "h a",
+                  day: "MMM DD",
+                  week: "MMM DD",
+                  month: "MMM YYYY",
+                  quarter: "MMM YYYY",
+                  year: "YYYY",
+                },
+              },
               ticks: {
                 autoSkip: true,
                 maxTicksLimit: 15,
+                precision: 2,
               },
             },
           ],
@@ -134,6 +150,8 @@ export default {
     return {
       data: [],
 
+
+      // when different time scale is selected simply filters all readings that don't fit within scale
       selectedScale: 0,
     };
   },

@@ -23,5 +23,3 @@ export default {
 
 
 
-  // 
-  // if(this.accountCreated){ this.store.setAccountCreated(false);}

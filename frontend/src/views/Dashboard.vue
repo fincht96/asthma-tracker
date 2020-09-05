@@ -1,7 +1,5 @@
 <template>
   <div id="dashboard">
-
-
     <DashboardModal v-if="showModal" />
 
     <div class="action-icon" v-on:click="showModal = true">+</div>
@@ -18,7 +16,7 @@
           </div>
 
           <div id="myDropdown" class="dropdown-content">
-            <a href="/profile">My Account</a>
+            <a v-on:click="navigateToAccount()">My Account</a>
             <a v-on:click="onLogout()" id="logout">Log Out</a>
           </div>
         </div>
@@ -29,15 +27,6 @@
             v-on:click="selectedMenu = 'graph'"
             class="menu-icon"
             src="../assets/graph-128.svg"
-          />
-        </div>
-
-        <div>
-          <img
-            v-bind:class="{ selected: selectedMenu == 'calendar' }"
-            v-on:click="selectedMenu = 'calendar'"
-            class="menu-icon"
-            src="../assets/calendar-128.svg"
           />
         </div>
 
@@ -55,15 +44,18 @@
     <div style="height: 75px;"></div>
 
     <Table v-if="selectedMenu == 'table'" />
-    <Calendar v-else-if="selectedMenu == 'calendar'" />
+
     <Graph v-else-if="selectedMenu == 'graph'" />
+
+
+ 
   </div>
 </template>
 <script>
 // @ is an alias to /src
 import DashboardModal from "@/components/DashboardModal.vue";
 import Table from "@/components/Table.vue";
-import Calendar from "@/components/Calendar.vue";
+
 import Graph from "@/components/Graph.vue";
 import { EventBus } from "@/event_bus/event_bus.js";
 
@@ -74,11 +66,14 @@ export default {
   components: {
     DashboardModal,
     Table,
-    Calendar,
     Graph,
   },
 
   methods: {
+    navigateToAccount() {
+      this.$router.replace({ name: "Account" });
+    },
+
     dropDownClicked() {
       document.getElementById("myDropdown").classList.toggle("show");
     },
@@ -135,9 +130,7 @@ export default {
     }
   },
 
-  mounted() {
-
-  },
+  mounted() {},
 
   data: function() {
     return {

@@ -91,7 +91,7 @@ td {
 
 #table {
   width: 100%;
-  max-width: 1250px;
+  max-width: 1000px;
   padding: 0px 20px;
 }
 
