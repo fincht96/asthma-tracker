@@ -1,50 +1,24 @@
 <template>
   <div id="app">
     <div id="nav" v-if="!this.$store.state.authenticated">
-      <nav class="navbar" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-          <div class="navbar-item" href="/">
-            <!-- <div style="font-size: 20px;">Asthma Tracker</div> -->
-            <router-link to="/" style="font-size: 20px;"
-              >Asthma Tracker</router-link
-            >
-          </div>
-
-          <a
-            role="button"
-            class="navbar-burger burger"
-            aria-label="menu"
-            aria-expanded="false"
-            data-target="navbarBasicExample"
+      <div
+        style="  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row-reverse;"
+      >
+        <div style="flex-grow:1; text-align:right;">
+          <router-link to="/login">
+            <a class="button is-primary" style=" letter-spacing: 0.0625em; font-weight:lighter; background: #F9ADA0;">
+              <strong>Log in</strong>
+            </a>
+          </router-link>
+        </div>
+        <div style="flex-grow:9; text-align:left;">
+          <router-link to="/" style="font-size: 20px;"
+            >Asthma Tracker</router-link
           >
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </a>
         </div>
-
-        <div id="navbarBasicExample" class="navbar-menu">
-          <!-- <div class="navbar-start">
-            <div class="navbar-item">
-              <router-link to="/">Home</router-link>
-            </div>
-
-            <div class="navbar-item">
-              <router-link to="/about">About</router-link>
-            </div>
-          </div> -->
-
-          <div class="navbar-end">
-            <div class="navbar-item">
-              <router-link to="/login">
-                <a class="button is-primary">
-                  <strong>Log in</strong>
-                </a>
-              </router-link>
-            </div>
-          </div>
-        </div>
-      </nav>
+      </div>
     </div>
 
     <main>

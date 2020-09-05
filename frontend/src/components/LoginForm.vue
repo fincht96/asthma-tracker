@@ -19,10 +19,12 @@
             type="text"
             v-model="email"
             :class="{
-                'is-danger': emailError,
-              }"
+              'is-danger': emailError,
+            }"
           />
-          <p :class="{ 'is-danger': emailError }" class="help">{{ emailMsg }}</p>
+          <p :class="{ 'is-danger': emailError }" class="help">
+            {{ emailMsg }}
+          </p>
         </div>
         <br />
 
@@ -40,23 +42,24 @@
                 'is-danger': passwordError,
               }"
             />
-            <p :class="{ 'is-danger': passwordError }" class="help">{{ passwordMsg }}</p>
+            <p :class="{ 'is-danger': passwordError }" class="help">
+              {{ passwordMsg }}
+            </p>
           </div>
         </div>
 
-        <br />
+        <div style="height:50px;" />
 
-        <div class="field is-grouped">
-          <div class="control">
-            <button class="button is-link" v-on:click="loginRequest" id="logInBtn">Log in</button>
-          </div>
-          <div class="control">
-            <button class="button is-link is-light">Cancel</button>
-          </div>
-        </div>
+        <button
+          style="width:100%;  letter-spacing: 0.0625em; font-weight:lighter;"
+          class="button is-link"
+          v-on:click="loginRequest"
+          id="logInBtn"
+        >
+         Log in
+        </button>
 
-        <br />
-        <br />
+        <div style="height:20px;" />
         <div>
           Don't have an account?
           <router-link to="/signup">Sign up</router-link>
@@ -85,7 +88,7 @@ export default {
       emailMsg: "",
       passwordMsg: "",
       emailError: false,
-      passwordError: false
+      passwordError: false,
     };
   },
 
@@ -140,14 +143,14 @@ export default {
 
           let resp = await fetch("http://localhost:3000/login", {
             method: "POST",
-            credentials: 'include', 
+            credentials: "include",
             headers: {
-              "content-type": "application/json"
+              "content-type": "application/json",
             },
             body: JSON.stringify({
               email: this.email,
-              password: this.password
-            })
+              password: this.password,
+            }),
           });
 
           if (resp.status == 200) {
@@ -158,20 +161,15 @@ export default {
             this.passwordMsg = "Invalid password provided";
           }
 
-       
-
           console.log(resp);
         }
 
         logInBtn.disabled = false;
-
       } catch (e) {
         console.log(e);
         logInBtn.disabled = false;
       }
-
-
-    }
+    },
   },
   watch: {
     email: function(email) {
@@ -182,8 +180,8 @@ export default {
     password: function(password) {
       this.passwordError = false;
       this.passwordMsg = "";
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -34,9 +34,15 @@
                 'is-danger': password1Error,
               }"
             />
-            <p :class="{ 'is-danger': password1Error }" class="help">{{ password1Msg }}</p>
+            <p :class="{ 'is-danger': password1Error }" class="help">
+              {{ password1Msg }}
+            </p>
 
-            <div v-if="password1.length" class="password-background" id="pwb"></div>
+            <div
+              v-if="password1.length"
+              class="password-background"
+              id="pwb"
+            ></div>
             <div v-if="password1.length" class="strength" id="pws"></div>
           </div>
 
@@ -54,21 +60,27 @@
                 'is-danger': password2Error,
               }"
             />
-            <p v-if="password2Error" class="help is-danger">Passwords don't match</p>
+            <p v-if="password2Error" class="help is-danger">
+              Passwords don't match
+            </p>
           </div>
         </div>
 
-        <br />
+        <div style="height:50px;" />
 
-        <div class="field is-grouped">
-          <div class="control">
-            <button class="button is-link" v-on:click="signUpRequest" id="signUpBtn">Sign Up</button>
-          </div>
-        </div>
+        <button
+          style="width:100%;"
+          class="button is-link"
+          v-on:click="signUpRequest"
+          id="signUpBtn"
+        >
+          Sign Up
+        </button>
 
-        <br />
-        <br />
+        <div style="height:20px;" />
+
         <div>
+
           Already have an account?
           <router-link to="/login">Log in</router-link>
         </div>
@@ -154,13 +166,13 @@ export default {
           let resp = await fetch("http://localhost:3000/signup", {
             method: "POST",
             headers: {
-              "Content-Type": "application/json"
+              "Content-Type": "application/json",
               // 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: JSON.stringify({
               email: this.email,
-              password: this.password1
-            })
+              password: this.password1,
+            }),
           });
           signUpBtn.disabled = false;
           this.$store.commit("setAccountCreated", true);
@@ -172,7 +184,7 @@ export default {
       } else {
         signUpBtn.disabled = false;
       }
-    }
+    },
   },
 
   data: function() {
@@ -185,7 +197,7 @@ export default {
         "Use 8 or more characters with a medium or higher password strength",
       emailError: false,
       password1Error: false,
-      password2Error: false
+      password2Error: false,
     };
   },
 
@@ -230,8 +242,8 @@ export default {
 
     password2: function(password) {
       this.password2Error = false;
-    }
-  }
+    },
+  },
 };
 </script>
 

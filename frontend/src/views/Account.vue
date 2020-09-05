@@ -17,7 +17,7 @@
 
     <h1 class="title is-4" style="color:#666;">Thomas Finch</h1>
 
-    <div style="width:90%; max-width:800px;">
+    <div style="width:90%; max-width:1000px;">
       <div class="menu-container">
         <div
           class="menu-item"
@@ -118,91 +118,101 @@
       <div v-if="selectedItem == 1">
         <div style="height:60px;" />
 
-        <div style="margin-left:20px;">
-          <p
-            style="letter-spacing: 0.0625em; font-weight:lighter; color:#ccc; text-align:left; font-size: 16px;"
-          >
-            First name
-          </p>
-          <p
-            style="letter-spacing: 0.0625em; font-weight:lighter; color:#666; text-align:left; font-size: 20px;"
-          >
-            Thomas
-          </p>
+        <div class="account-details-grid-container">
+          <div class="item">
+            <p
+              style="letter-spacing: 0.0625em; font-weight:lighter; color:#ccc; text-align:left; font-size: 16px;"
+            >
+              First name
+            </p>
+            <p
+              style="letter-spacing: 0.0625em; font-weight:lighter; color:#666; text-align:left; font-size: 20px;"
+            >
+              Thomas
+            </p>
+          </div>
 
-          <div style="height:50px;" />
+          <div class="edit">EDIT</div>
 
-          <p
-            style="letter-spacing: 0.0625em; font-weight:lighter; color:#ccc; text-align:left; font-size: 16px;"
-          >
-            Last name
-          </p>
-          <p
-            style="letter-spacing: 0.0625em; font-weight:lighter; color:#666; text-align:left; font-size: 20px;"
-          >
-            Finch
-          </p>
+          <div class="item">
+            <p
+              style="letter-spacing: 0.0625em; font-weight:lighter; color:#ccc; text-align:left; font-size: 16px;"
+            >
+              Last name
+            </p>
+            <p
+              style="letter-spacing: 0.0625em; font-weight:lighter; color:#666; text-align:left; font-size: 20px;"
+            >
+              Finch
+            </p>
+          </div>
 
-          <div style="height:50px;" />
+          <div class="edit">EDIT</div>
 
+          <div class="item">
+            <p
+              style="letter-spacing: 0.0625em; font-weight:lighter; color:#ccc; text-align:left; font-size: 16px;"
+            >
+              Height
+            </p>
+            <p
+              style="letter-spacing: 0.0625em; font-weight:lighter; color:#666; text-align:left; font-size: 20px;"
+            >
+              6'1"
+            </p>
+          </div>
 
-          <p
-            style="letter-spacing: 0.0625em; font-weight:lighter; color:#ccc; text-align:left; font-size: 16px;"
-          >
-            Height
-          </p>
-          <p
-            style="letter-spacing: 0.0625em; font-weight:lighter; color:#666; text-align:left; font-size: 20px;"
-          >
-            6'1"
-          </p>
+          <div class="edit">EDIT</div>
 
-          <div style="height:50px;" />
+          <div class="item">
+            <p
+              style="letter-spacing: 0.0625em; font-weight:lighter; color:#ccc; text-align:left; font-size: 16px;"
+            >
+              Date of birth
+            </p>
+            <p
+              style="letter-spacing: 0.0625em; font-weight:lighter; color:#666; text-align:left; font-size: 20px;"
+            >
+              24/03/1996
+            </p>
+          </div>
 
-          <p
-            style="letter-spacing: 0.0625em; font-weight:lighter; color:#ccc; text-align:left; font-size: 16px;"
-          >
-            Date of birth
-          </p>
-          <p
-            style="letter-spacing: 0.0625em; font-weight:lighter; color:#666; text-align:left; font-size: 20px;"
-          >
-            24/03/1996
-          </p>
+          <div class="edit">EDIT</div>
 
-          <div style="height:50px;" />
+          <div class="item">
+            <p
+              style="letter-spacing: 0.0625em; font-weight:lighter; color:#ccc; text-align:left; font-size: 16px;"
+            >
+              Email Address
+            </p>
+            <p
+              style="letter-spacing: 0.0625em; font-weight:lighter; color:#666; text-align:left; font-size: 20px;"
+            >
+              fincht96@gmail.com
+            </p>
+          </div>
 
+          <div class="edit">EDIT</div>
 
-          <p
-            style="letter-spacing: 0.0625em; font-weight:lighter; color:#ccc; text-align:left; font-size: 16px;"
-          >
-            Email Address
-          </p>
-          <p
-            style="letter-spacing: 0.0625em; font-weight:lighter; color:#666; text-align:left; font-size: 20px;"
-          >
-            fincht96@gmail.com
-          </p>
+          <div class="item">
+            <p
+              style="letter-spacing: 0.0625em; font-weight:lighter; color:#ccc; text-align:left; font-size: 16px;"
+            >
+              Password
+            </p>
+            <p
+              style="letter-spacing: 0.0625em; font-weight:lighter; color:#666; text-align:left; font-size: 20px;"
+            >
+              &#8226; &#8226; &#8226; &#8226; &#8226; &#8226; &#8226; &#8226;
+              &#8226;
+            </p>
+          </div>
 
-          <div style="height:50px;" />
+          <div class="edit">EDIT</div>
 
-          <p
-            style="letter-spacing: 0.0625em; font-weight:lighter; color:#ccc; text-align:left; font-size: 16px;"
-          >
-            Password
-          </p>
-          <p
-            style="letter-spacing: 0.0625em; font-weight:lighter; color:#666; text-align:left; font-size: 20px;"
-          >
-            &#8226; &#8226; &#8226; &#8226; &#8226; &#8226; &#8226; &#8226;
-            &#8226;
-          </p> 
-
-
-           <div style="height:100px;" />
-
-
-          <button class="button is-danger is-light" style="width: 100%;">Delete account</button>
+          <button class="button is-danger is-light delete-btn" style="font-size: 16px;">
+            Delete account
+          </button>
 
           <flatPickr hidden />
         </div>
@@ -361,5 +371,40 @@ export default {
 
 .menu-container .selected-menu-item {
   border-bottom: solid 3px #808080;
+}
+
+.account-details-grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+}
+
+.account-details-grid-container .item {
+  margin-left: 20px;
+  margin-bottom: 50px;
+  grid-column: 1/2;
+}
+
+
+
+.account-details-grid-container .delete-btn {
+  margin: 50px 0px;
+  grid-column: 1/3;
+}
+
+.account-details-grid-container .edit {
+    height: min-content;
+  margin-left: auto;
+  margin-right: 20px;
+
+  margin-left: auto;
+
+  margin-bottom: 50px;
+  letter-spacing: 0.0625em;
+  font-weight: lighter;
+  color: #ffbf80;
+  text-align: left;
+  font-size: 16px;
+  cursor: pointer;
 }
 </style>

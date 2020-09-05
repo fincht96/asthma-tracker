@@ -84,7 +84,8 @@ td {
 }
 
 .comment {
-  text-align: justify;
+  /* text-align: justify; */
+  text-align: center;
   max-width: 80%;
   margin: 0 auto;
 }
