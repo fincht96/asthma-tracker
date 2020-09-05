@@ -134,7 +134,7 @@ export default {
               },
               ticks: {
                 autoSkip: true,
-                maxTicksLimit: 15,
+                maxTicksLimit: 10,
                 precision: 2,
               },
             },

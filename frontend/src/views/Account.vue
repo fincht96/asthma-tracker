@@ -17,20 +17,102 @@
 
     <h1 class="title is-4" style="color:#666;">Thomas Finch</h1>
 
-    <div class="menu-container">
-      <div
-        class="menu-item "
-        v-bind:class="{ 'selected-menu-item': selectedItem == 0 }"
-        v-on:click="selectedItem = 0"
-      >
-        <h3 class="subtitle is-6">Stats</h3>
+    <div style="width:90%; max-width:800px;">
+      <div class="menu-container">
+        <div
+          class="menu-item"
+          v-bind:class="{ 'selected-menu-item': selectedItem == 0 }"
+          v-on:click="selectedItem = 0"
+        >
+          Stats
+        </div>
+        <div
+          class="menu-item"
+          v-bind:class="{ 'selected-menu-item': selectedItem == 1 }"
+          v-on:click="selectedItem = 1"
+        >
+          Account Details
+        </div>
       </div>
-      <div
-        class="menu-item"
-        v-bind:class="{ 'selected-menu-item': selectedItem == 1 }"
-        v-on:click="selectedItem = 1"
-      >
-        <h3 class="subtitle is-6">Account Details</h3>
+
+      <div v-if="selectedItem == 0">
+        <div style="background:#ccc; min-width:100%; padding:60px;">
+          <p style="color:white;">Current run streak</p>
+          <div style="margin:60px;" />
+          <p style="font-size:35px; font-weight: bold; color:white;">7 days</p>
+        </div>
+
+        <div style="height:50px;" />
+
+        <div style="margin-left:20px;">
+          <h5
+            class="subtitle is-6"
+            style="letter-spacing: 0.0625em; font-weight:lighter; color:#666; text-align:left;"
+          >
+            TOTAL ENTRIES
+          </h5>
+
+          <p style="color:#666; text-align:left; font-size:40px;">
+            <span style="font-weight:bold; font-size:40px;">14</span>
+            <span style="font-size:20px;"> entries</span>
+          </p>
+
+          <div style="height:50px;" />
+
+          <h5
+            class="subtitle is-6"
+            style="letter-spacing: 0.0625em; font-weight:lighter; color:#666; text-align:left;"
+          >
+            AVERAGE PEAK FLOW
+          </h5>
+
+          <p style="color:#666; text-align:left; font-size:40px;">
+            <span style="font-weight:bold; font-size:40px;">510</span>
+            <span style="font-size:20px;"> L/min</span>
+          </p>
+
+          <div style="height:50px;" />
+
+          <h5
+            class="subtitle is-6"
+            style="letter-spacing: 0.0625em; font-weight:lighter; color:#666; text-align:left;"
+          >
+            AVERAGE PEAK FLOW (PRE-MED)
+          </h5>
+
+          <p style="color:#666; text-align:left; font-size:40px;">
+            <span style="font-weight:bold; font-size:40px;">480</span>
+            <span style="font-size:20px;"> L/min</span>
+          </p>
+
+          <div style="height:50px;" />
+
+          <h5
+            class="subtitle is-6"
+            style="letter-spacing: 0.0625em; font-weight:lighter; color:#666; text-align:left;"
+          >
+            AVERAGE PEAK FLOW (POST-MED)
+          </h5>
+
+          <p style="color:#666; text-align:left; font-size:40px;">
+            <span style="font-weight:bold; font-size:40px;">530</span>
+            <span style="font-size:20px;"> L/min</span>
+          </p>
+
+          <div style="height:50px;" />
+
+          <h5
+            class="subtitle is-6"
+            style="letter-spacing: 0.0625em; font-weight:lighter; color:#666; text-align:left;"
+          >
+            AVERAGE PEAK FLOW (NO-MED)
+          </h5>
+
+          <p style="color:#666; text-align:left; font-size:40px;">
+            <span style="font-weight:bold; font-size:40px;">515</span>
+            <span style="font-size:20px;"> L/min</span>
+          </p>
+        </div>
       </div>
     </div>
 
@@ -172,21 +254,20 @@ export default {
   display: flex;
   align-items: stretch;
   margin-top: 30px;
-  max-width: 800px;
-  width: 90%;
 }
 
-.menu-item {
+.menu-container .menu-item {
+  font-weight: bold;
   color: #666;
   text-align: center;
   font-size: 15px;
   padding-bottom: 15px;
-  border-bottom: solid 2px #e6e6e6;
+  border-bottom: solid 3px #e6e6e6;
   flex-grow: 1;
   cursor: pointer;
 }
 
-.selected-menu-item {
-  border-bottom: solid 2px #808080;
+.menu-container .selected-menu-item {
+  border-bottom: solid 3px #808080;
 }
 </style>
