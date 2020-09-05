@@ -1,18 +1,13 @@
-
-
 <template>
   <div id="app">
     <div id="nav" v-if="!this.$store.state.authenticated">
-      <nav
-        class="navbar"
-        role="navigation"
-        aria-label="main navigation"
-        
-      >
+      <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
           <div class="navbar-item" href="/">
             <!-- <div style="font-size: 20px;">Asthma Tracker</div> -->
-            <router-link to="/" style="font-size: 20px;">Asthma Tracker</router-link>
+            <router-link to="/" style="font-size: 20px;"
+              >Asthma Tracker</router-link
+            >
           </div>
 
           <a
@@ -51,15 +46,12 @@
         </div>
       </nav>
     </div>
-    <router-view />
 
-    <div class="modal">
-      <div class="modal-background"></div>
-      <div class="modal-content">
-        <div style="width:100px; height:200px; background-color:white;">Hello World</div>
-      </div>
-      <button class="modal-close is-large" aria-label="close"></button>
-    </div>
+    <main>
+      <transition name="fade" mode="out-in">
+        <router-view />
+      </transition>
+    </main>
   </div>
 </template>
 
@@ -85,10 +77,10 @@ export default {
       // }
 
       let resp = await fetch("http://localhost:3000/loggedin", {
-        credentials: "include"
+        credentials: "include",
       });
 
-      console.log(resp)
+      console.log(resp);
 
       if (resp.status == 200) {
         // sets authentication enabled and re routes to dashboard
@@ -98,7 +90,7 @@ export default {
     } catch (e) {
       console.log(e);
     }
-  }
+  },
 };
 </script>
 
@@ -118,5 +110,17 @@ export default {
     font-weight: bold;
     color: #2c3e50;
   }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition-duration: 0.3s;
+  transition-property: opacity;
+  transition-timing-function: ease;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
 }
 </style>
