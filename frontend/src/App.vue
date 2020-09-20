@@ -16,7 +16,7 @@
         </div>
       </div>
     </div>-->
-    <NavBar v-if="!this.$store.state.authenticated"/>
+    <NavBar v-if="!this.$store.state.authenticated" />
 
     <main>
       <transition name="fade" mode="out-in">
@@ -33,13 +33,13 @@ import NavBar from "@/components/NavBar.vue";
 export default {
   name: "App",
   components: {
-    NavBar
+    NavBar,
   },
 
   computed: {
     currentRouteName() {
       return this.$route.name;
-    }
+    },
   },
 
   mounted() {
@@ -49,6 +49,11 @@ export default {
   methods: {},
 
   async created() {
+    window.addEventListener("resize", () => {
+      this.$store.commit("setWindowWidth");
+      this.$store.commit("setWindowHeight");
+    });
+
     try {
       if (!this.$store.state.authenticated) {
         console.log("no");
@@ -62,7 +67,7 @@ export default {
       // }
 
       let resp = await fetch("http://localhost:3000/loggedin", {
-        credentials: "include"
+        credentials: "include",
       });
 
       console.log(resp);
@@ -75,7 +80,7 @@ export default {
     } catch (e) {
       console.log(e);
     }
-  }
+  },
 };
 </script>
 

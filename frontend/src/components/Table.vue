@@ -6,11 +6,29 @@
           <th>When</th>
           <th>Peak Flow (L/min)</th>
           <th>Medication</th>
-          <th style="width:55%">Comment</th>
+          <th v-if="this.windowWidth > 700" style="width:40%">
+            Comment
+          </th>
         </tr>
       </thead>
 
-      <tbody v-if="this.$store.getters.entries.length">
+      <tbody v-if="this.windowWidth > 700">
+        <tr
+          v-for="(entry, index) in entries"
+          :key="index"
+          v-on:click="entrySelected(entry, index)"
+          class="row"
+        >
+          <td>{{ formattedDate(entry.date) }}</td>
+          <td>{{ entry.peakFlow }}</td>
+          <td>{{ entry.medication }}</td>
+          <td>
+            <div class="comment">{{ entry.comment }}</div>
+          </td>
+        </tr>
+      </tbody>
+
+      <tbody v-else>
         <tr
           v-for="(entry, index) in entries"
           :key="index"
@@ -19,9 +37,6 @@
           <td>{{ formattedDate(entry.date) }}</td>
           <td>{{ entry.peakFlow }}</td>
           <td>{{ entry.medication }}</td>
-          <td>
-            <div class="comment">{{ entry.comment }}</div>
-          </td>
         </tr>
       </tbody>
     </table>
@@ -33,6 +48,12 @@ export default {
   name: "LoginForm",
 
   mounted: function() {},
+
+  computed: {
+    windowWidth() {
+      return this.$store.getters.windowWidth;
+    },
+  },
 
   data: function() {
     return {
@@ -75,6 +96,7 @@ th {
 }
 
 td {
+  padding: 20px 10px;
   margin: 0px 10px;
   vertical-align: middle;
   -webkit-user-select: none; /* Safari */
@@ -99,5 +121,10 @@ td {
 p {
   margin: auto;
   width: 80%;
+}
+
+.row:hover {
+  background: #f6f6f6;
+  cursor: pointer;
 }
 </style>

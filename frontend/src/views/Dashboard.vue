@@ -43,12 +43,13 @@
 
     <div style="height: 75px;"></div>
 
-    <Table v-if="selectedMenu == 'table' && this.$store.getters.entries.length" />
+    <Table
+      v-if="selectedMenu == 'table' && this.$store.getters.entries.length"
+    />
 
-    <Graph v-else-if="selectedMenu == 'graph' && this.$store.getters.entries.length" />
-
-
- 
+    <Graph
+      v-else-if="selectedMenu == 'graph' && this.$store.getters.entries.length"
+    />
   </div>
 </template>
 <script>

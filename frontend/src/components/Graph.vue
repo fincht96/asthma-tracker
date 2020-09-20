@@ -1,54 +1,42 @@
 <template>
-  <div>
-    <canvas id="myChart"></canvas>
+  <div id="graph">
+    <div id="canvas-container">
+      <canvas id="myChart"></canvas>
+    </div>
 
     <div class="flex-container">
       <div
-        class="flex-item "
-        v-bind:class="{ selected: selectedScale == 0 }"
-        v-on:click="selectedScale = 0"
+        class="flex-item"
+        v-bind:class="{ selected: selectedScale == '5d' }"
+        v-on:click="scaleSelected('5d')"
       >
-        1 Day
+        5d
       </div>
       <div
         class="flex-item"
-        v-bind:class="{ selected: selectedScale == 1 }"
-        v-on:click="selectedScale = 1"
+        v-bind:class="{ selected: selectedScale == '1m' }"
+        v-on:click="scaleSelected('1m')"
       >
-        5 Days
+        1m
       </div>
       <div
         class="flex-item"
-        v-bind:class="{ selected: selectedScale == 2 }"
-        v-on:click="selectedScale = 2"
+        v-bind:class="{ selected: selectedScale == '6m' }"
+        v-on:click="scaleSelected('6m')"
       >
-        1 Month
+        6m
       </div>
       <div
         class="flex-item"
-        v-bind:class="{ selected: selectedScale == 3 }"
-        v-on:click="selectedScale = 3"
+        v-bind:class="{ selected: selectedScale == '1y' }"
+        v-on:click="scaleSelected('1y')"
       >
-        6 Months
+        1y
       </div>
       <div
         class="flex-item"
-        v-bind:class="{ selected: selectedScale == 4 }"
-        v-on:click="selectedScale = 4"
-      >
-        1 Year
-      </div>
-      <div
-        class="flex-item"
-        v-bind:class="{ selected: selectedScale == 5 }"
-        v-on:click="selectedScale = 5"
-      >
-        5 Years
-      </div>
-      <div
-        class="flex-item"
-        v-bind:class="{ selected: selectedScale == 6 }"
-        v-on:click="selectedScale = 6"
+        v-bind:class="{ selected: selectedScale == 'all' }"
+        v-on:click="scaleSelected('all')"
       >
         Max
       </div>
@@ -58,49 +46,119 @@
 
 <script>
 import Chart from "chart.js";
+import Moment from "moment";
 
 export default {
   name: "Graph",
 
-  methods: {},
+  computed: {
+    entries() {
+      return this.$store.getters.entries;
+    },
+
+    selectedScale() {
+      return this.$store.getters.selectedScale;
+    },
+  },
+
+  watch: {
+    entries: function(newEntries, oldEntries) {
+      console.log("entries changed");
+
+      this.filter(this.selectedScale);
+    },
+  },
+
+  methods: {
+    filter(scale) {
+      this.chart.data.datasets[0].data = [];
+
+      let mindate = Moment().subtract(1, "days");
+
+      switch (scale) {
+        case "5d":
+          mindate = Moment().subtract(5, "days");
+          break;
+
+        case "1m":
+          mindate = Moment().subtract(1, "months");
+          break;
+
+        case "6m":
+          mindate = Moment().subtract(6, "months");
+          break;
+
+        case "1y":
+          mindate = Moment().subtract(1, "year");
+          break;
+      }
+
+      for (let i = 0; i < this.entries.length; i++) {
+        if (this.entries[i].date >= mindate || scale == "all") {
+          let newDataItem = {
+            x: this.entries[i].date,
+            y: this.entries[i].peakFlow,
+          };
+
+          this.chart.data.datasets[0].data.push(newDataItem);
+        }
+      }
+
+      this.chart.data.datasets[0].data.sort(function(a, b) {
+        return a.date - b.date;
+      });
+
+      this.chart.update();
+    },
+
+    scaleSelected(scale) {
+      // set selected scale
+      this.$store.commit("setSelectedScale", scale);
+      // this.selectedScale = scale;
+
+      this.filter(scale);
+    },
+
+    graphColor() {
+      let currentHour = Moment().format("HH");
+      console.log(currentHour);
+
+      if (currentHour >= 3 && currentHour < 7) {
+        return "248,177,149";
+      } else if (currentHour >= 7 && currentHour < 12) {
+        return "246,114,128";
+      } else if (currentHour >= 12 && currentHour < 17) {
+        return "192,108,132";
+      } else if (currentHour >= 17 && currentHour < 21) {
+        return "123,91,108";
+      } else if (currentHour >= 21 || currentHour < 3) {
+        console.log("this one");
+        return "53,92,112";
+      }
+    },
+  },
 
   mounted() {
-    console.log("called");
+    this.ctx = document.getElementById("myChart");
 
-    for (let i = 0; i < this.$store.getters.entries.length; i++) {
-      let newDataItem = {
-        x: this.$store.getters.entries[i].date,
-        y: this.$store.getters.entries[i].peakFlow,
-      };
-
-      console.log(newDataItem);
-      this.data.push(newDataItem);
-    }
-
-    console.log(this.data);
-
-    var ctx = document.getElementById("myChart");
-
-    ctx.width = document.body.clientWidth * 0.8;
-    ctx.height = document.body.clientHeight * 0.5;
-
-    if (ctx.width > 800) {
-      ctx.width = 800;
-    }
-
-    console.log(ctx);
-
-    var myLineChart = new Chart(ctx, {
-      type: "line",
+    this.chart = new Chart(this.ctx, {
+      type: "scatter",
       data: {
         datasets: [
           {
             label: "",
             data: this.data,
+            showLine: true,
+            backgroundColor: "rgba(" + this.graphColor() + ",0.5)",
+            borderColor: "rgba(" + this.graphColor() + ",0.5)",
+            pointBackgroundColor: "rgba(" + this.graphColor() + ",0.5)",
+            pointBorderColor: "rgba(" + this.graphColor() + ",0.5)",
+            fill: true,
           },
         ],
       },
       options: {
+        maintainAspectRatio: true,
         legend: {
           display: false,
           labels: {
@@ -119,6 +177,10 @@ export default {
           xAxes: [
             {
               type: "time",
+              scaleLabel: {
+                display: true,
+                labelString: "Date/Time",
+              },
               time: {
                 displayFormats: {
                   millisecond: "h:mm a",
@@ -135,7 +197,7 @@ export default {
               ticks: {
                 autoSkip: true,
                 maxTicksLimit: 10,
-                precision: 2,
+                precision: 1,
               },
             },
           ],
@@ -144,35 +206,53 @@ export default {
         yAxisID: "Peak Flow",
       },
     });
+
+    this.filter("5days");
   },
 
   data: function() {
     return {
       data: [],
 
-
       // when different time scale is selected simply filters all readings that don't fit within scale
-      selectedScale: 0,
+      // selectedScale: "5d",
+      chart: "",
+      ctx: "",
     };
   },
 };
 </script>
 
 <style scoped>
+#graph {
+  width: 100%;
+  max-width: 1000px;
+  padding: 0px 20px;
+}
+
 .flex-container {
   display: flex;
-  align-items: stretch;
-  margin-top: 70px;
+  align-items: center;
+  justify-content: center;
+  margin: 40px auto;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 650px;
 }
 
 .flex-item {
   color: #666;
   text-align: center;
   font-size: 13px;
-  padding-bottom: 15px;
+  padding: 15px 0px;
   /* border-bottom: solid 2px #e6e6e6; */
-  flex-grow: 1;
   cursor: pointer;
+  flex-grow: 1;
+  border-bottom: solid 2px white;
+}
+
+.flex-item:hover {
+  border-bottom: solid 2px #808080;
 }
 
 .selected {

@@ -17,6 +17,10 @@ export default new Vuex.Store({
     authenticated: false,
     accountCreated: false,
     entries: [],
+    selectedScale: "5d",
+
+    windowWidth: window.innerWidth,
+    windowHeight: window.innerHeight,
   },
   mutations: {
     setAuthentication(state, status) {
@@ -30,6 +34,18 @@ export default new Vuex.Store({
     addNewEntry(state, newEntry) {
       state.entries.push(newEntry);
     },
+
+    setSelectedScale(state, newScale) {
+      state.selectedScale = newScale;
+    },
+
+    setWindowWidth(state) {
+      state.windowWidth = window.innerWidth;
+    },
+
+    setWindowHeight(state) {
+      state.windowHeight = window.innerHeight;
+    },
   },
 
   getters: {
@@ -39,6 +55,18 @@ export default new Vuex.Store({
 
     entries: (state) => {
       return state.entries;
+    },
+
+    selectedScale: (state) => {
+      return state.selectedScale;
+    },
+
+    windowWidth: (state) => {
+      return state.windowWidth;
+    },
+
+    windowHeight: (state) => {
+      return state.windowHeight;
     },
   },
   actions: {},

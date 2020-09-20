@@ -20,7 +20,7 @@
 
       <div
         style="flex-grow:9; text-align:left; margin: auto auto;"
-        v-if="currentRouteName == 'Home'"
+        
       >
         <router-link to="/" style="font-size: 20px;">Asthma Tracker</router-link>
       </div>
