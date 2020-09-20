@@ -1,25 +1,22 @@
 <template>
   <div id="app">
-    <div id="nav" v-if="!this.$store.state.authenticated">
-      <div
-        style="  display: flex;
+    <!-- <div id="nav" v-if="!this.$store.state.authenticated">
+      <div style="  display: flex;
   flex-wrap: nowrap;
-  flex-direction: row-reverse;"
-      >
+  flex-direction: row-reverse;">
         <div style="flex-grow:1; text-align:right;">
           <router-link to="/login">
-            <a class="button is-primary" style=" letter-spacing: 0.0625em; font-weight:lighter; background: #F9ADA0;">
+            <a class="button is-link" style="color: #e6e6e6;">
               <strong>Log in</strong>
             </a>
           </router-link>
         </div>
         <div style="flex-grow:9; text-align:left;">
-          <router-link to="/" style="font-size: 20px;"
-            >Asthma Tracker</router-link
-          >
+          <router-link to="/" style="font-size: 20px;">Asthma Tracker</router-link>
         </div>
       </div>
-    </div>
+    </div>-->
+    <NavBar v-if="!this.$store.state.authenticated"/>
 
     <main>
       <transition name="fade" mode="out-in">
@@ -30,10 +27,24 @@
 </template>
 
 <script>
+import NavBar from "@/components/NavBar.vue";
 // @ is an alias to /src
 
 export default {
   name: "App",
+  components: {
+    NavBar
+  },
+
+  computed: {
+    currentRouteName() {
+      return this.$route.name;
+    }
+  },
+
+  mounted() {
+    console.log(this.currentRouteName);
+  },
 
   methods: {},
 
@@ -51,7 +62,7 @@ export default {
       // }
 
       let resp = await fetch("http://localhost:3000/loggedin", {
-        credentials: "include",
+        credentials: "include"
       });
 
       console.log(resp);
@@ -64,7 +75,7 @@ export default {
     } catch (e) {
       console.log(e);
     }
-  },
+  }
 };
 </script>
 
@@ -75,15 +86,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-  }
 }
 
 .fade-enter-active,

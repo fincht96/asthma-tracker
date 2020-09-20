@@ -1,5 +1,9 @@
 <template>
   <div class="flex-container">
+
+
+    <br>
+    <br><br>
     <div class="row">
       <section class="hero">
         <div class="hero-body">
@@ -13,9 +17,9 @@
       </section>
     </div>
 
-    <div style="height:50px;" />
 
-    <div class="marketing">
+
+    <!-- <div class="marketing">
       <div class="container">
         <div class="item">
           <img src="../assets/cloud-black-48dp.svg" />
@@ -49,7 +53,7 @@
           <h2 class="subtitle is-6">Someone has to pay for the servers</h2>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 

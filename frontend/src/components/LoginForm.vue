@@ -59,7 +59,7 @@
          Log in
         </button>
 
-        <div style="height:20px;" />
+        <div style="height:50px;" />
         <div>
           Don't have an account?
           <router-link to="/signup">Sign up</router-link>
