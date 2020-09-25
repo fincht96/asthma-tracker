@@ -1,19 +1,13 @@
 <template>
   <div id="dashboard">
-    <DashboardModal v-if="showModal" />
+    <DashboardModal v-bind:entryIndexProp="selectedEntryIndex" v-if="showModal" />
 
     <div class="action-icon" v-on:click="showModal = true">+</div>
 
     <div id="menu">
       <div class="flex-container">
         <div class="dropdown">
-          <div
-            ref="accnt-btn"
-            class="user-icon dropbtn"
-            v-on:click="dropDownClicked()"
-          >
-            TF
-          </div>
+          <div ref="accnt-btn" class="user-icon dropbtn" v-on:click="dropDownClicked()">TF</div>
 
           <div id="myDropdown" class="dropdown-content">
             <a v-on:click="navigateToAccount()">My Account</a>
@@ -43,13 +37,9 @@
 
     <div style="height: 75px;"></div>
 
-    <Table
-      v-if="selectedMenu == 'table' && this.$store.getters.entries.length"
-    />
+    <Table v-if="selectedMenu == 'table' && this.$store.getters.entries.length" />
 
-    <Graph
-      v-else-if="selectedMenu == 'graph' && this.$store.getters.entries.length"
-    />
+    <Graph v-else-if="selectedMenu == 'graph' && this.$store.getters.entries.length" />
   </div>
 </template>
 <script>
@@ -67,7 +57,7 @@ export default {
   components: {
     DashboardModal,
     Table,
-    Graph,
+    Graph
   },
 
   methods: {
@@ -83,7 +73,7 @@ export default {
       try {
         let resp = await fetch("http://localhost:3000/logout?_method=DELETE", {
           method: "POST",
-          credentials: "include",
+          credentials: "include"
         });
 
         if (resp.status == 200) {
@@ -97,12 +87,19 @@ export default {
 
       // POST http://localhost:3000/logout?_method=DELETE
       // send fetch request to log out
-    },
+    }
   },
 
   async created() {
     EventBus.$on("close-dashboard-modal", () => {
       this.showModal = false;
+      this.selectedEntryIndex = -1;
+    });
+
+    EventBus.$on("open-dashboard-modal", val => {
+      this.showModal = true;
+      this.selectedEntryIndex = val;
+
     });
 
     try {
@@ -118,14 +115,33 @@ export default {
           }
         }
       };
-      // let resp = await fetch("http://localhost:3000");
-      // let a = await resp.json();
 
-      // if (a.a == 1) {
-      //   console.log("a is 1!");
-      // }
+      try {
+        let resp = await fetch("http://localhost:3000/entries", {
+          method: "GET",
+          credentials: "include"
+        });
 
-      console.log("called app");
+        resp = await resp.json();
+        console.log(resp);
+
+        for (let i = 0; i < resp.length; i++) {
+          console.log(resp.length);
+          this.$store.commit("addNewEntry", {
+            date: resp[i].date,
+            peakFlow: resp[i].peakFlow,
+            medication: resp[i].medication,
+            comment: resp[i].comment
+          });
+        }
+
+        // if (resp.status == 200) {
+        //   // sets authentication disabled and re routes to login
+        //   console.log(resp);
+        // }
+      } catch (e) {
+        console.log(e);
+      }
     } catch (e) {
       console.log(e);
     }
@@ -138,8 +154,9 @@ export default {
       dropdownOpen: true,
       showModal: false,
       selectedMenu: "table",
+      selectedEntryIndex: -1
     };
-  },
+  }
 };
 </script>
 

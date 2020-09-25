@@ -7,7 +7,7 @@
       </div>
 
       <br />
-      <h1 class="title is-4">Welcome to Asthma Tracker!</h1>
+      <h1 class="title is-4">Log in</h1>
 
       <br />
 

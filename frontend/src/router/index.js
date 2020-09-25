@@ -8,7 +8,7 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "Home",
+    name: "Work",
     component: Home,
     beforeEnter: (to, from, next) => {
       if (store.state.authenticated == true) {
@@ -17,6 +17,9 @@ const routes = [
         next();
       }
     },
+    meta: {
+      title: 'Thomas Finch - Work',
+    }
   },
   {
     path: "/about",
@@ -33,6 +36,9 @@ const routes = [
         next();
       }
     },
+    meta: {
+      title: 'Thomas Finch - About',
+    }
   },
   {
     path: "/login",

@@ -6,9 +6,7 @@
           <th>When</th>
           <th>Peak Flow (L/min)</th>
           <th>Medication</th>
-          <th v-if="this.windowWidth > 700" style="width:40%">
-            Comment
-          </th>
+          <th v-if="this.windowWidth > 700" style="width:40%">Comment</th>
         </tr>
       </thead>
 
@@ -29,11 +27,7 @@
       </tbody>
 
       <tbody v-else>
-        <tr
-          v-for="(entry, index) in entries"
-          :key="index"
-          v-on:click="entrySelected(entry, index)"
-        >
+        <tr v-for="(entry, index) in entries" :key="index" v-on:click="entrySelected(entry, index)">
           <td>{{ formattedDate(entry.date) }}</td>
           <td>{{ entry.peakFlow }}</td>
           <td>{{ entry.medication }}</td>
@@ -44,6 +38,8 @@
 </template>
 
 <script>
+import { EventBus } from "@/event_bus/event_bus.js";
+
 export default {
   name: "LoginForm",
 
@@ -52,18 +48,19 @@ export default {
   computed: {
     windowWidth() {
       return this.$store.getters.windowWidth;
-    },
+    }
   },
 
   data: function() {
     return {
-      entries: this.$store.getters.entries,
+      entries: this.$store.getters.entries
     };
   },
 
   methods: {
     entrySelected(entry, index) {
-      console.log("entry: ", index, " selected");
+      // console.log("entry: ", index, " selected");
+      EventBus.$emit("open-dashboard-modal", index);
     },
 
     formattedDate(date) {
@@ -75,8 +72,8 @@ export default {
       let mins = ("0" + date.getMinutes()).slice(-2);
 
       return `${month} ${day}, ${year} ${hours}:${mins}`;
-    },
-  },
+    }
+  }
 };
 </script>
 
