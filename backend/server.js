@@ -39,22 +39,13 @@ MongoClient.connect(mongoConnectionString, { useUnifiedTopology: true })
         return usersCollection.findOne(ObjectId(id));
       }
     );
- 
 
-    app.use(cors({
-      origin: 'http://localhost:8080',
-      credentials: true,
-    }));
-
-    // app.use(function (req, res, next) {
-    //   res.header("Access-Control-Allow-Origin", "http://localhost:8080"); // update to match the domain you will make the request from
-    //   res.header(
-    //     "Access-Control-Allow-Headers",
-    //     "Origin, X-Requested-With, Content-Type, Accept"
-    //   );
-    //   res.header("Access-Control-Allow-Credentials", "true");
-    //   next();
-    // });
+    app.use(
+      cors({
+        origin: "http://localhost:8080",
+        credentials: true,
+      })
+    );
 
     app.use(
       session({
@@ -63,8 +54,6 @@ MongoClient.connect(mongoConnectionString, { useUnifiedTopology: true })
         saveUninitialized: false,
       })
     );
-
-   
 
     app.use(passport.initialize());
 
@@ -189,6 +178,20 @@ MongoClient.connect(mongoConnectionString, { useUnifiedTopology: true })
             },
           }
         );
+      } catch (e) {
+        console.log(e);
+      }
+    });
+
+    app.get("/entries", checkAuthenticated, async (req, res) => {
+      try {
+        // find the user then search entries for document to
+        let result = await usersCollection.findOne({ _id: req.user._id });
+        // let entryIndex = req.body.entry_id;
+
+        // console.log(result);
+
+        res.status(200).send(result._entrys);
       } catch (e) {
         console.log(e);
       }
